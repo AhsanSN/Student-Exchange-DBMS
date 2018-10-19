@@ -54,6 +54,36 @@
                           </div>
                         </div>
                       </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile Number<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                      </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact Number<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                      </div>
+                      </div>
+                    </div>
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">CNIC<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                          <input type="text" class="form-control" data-inputmask="'mask': '99-99-9999'">
+                      </div>
+                      <hr>
+                      </div>
+                    </div>
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth<span class="required"></span>
                           </label>
@@ -65,6 +95,7 @@
                       <hr>
                       </div>
                     </div>
+
 
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Department<span class="required"></span>
