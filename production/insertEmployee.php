@@ -27,14 +27,14 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
@@ -54,19 +54,71 @@
                           </div>
                         </div>
                       </div>
-                
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining<span class="required">*</span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class='input-group date' id='myDatepicker2'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                               <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+                          <div class="form-group">
+                        
+                          <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                      </div>
+                      <hr>
                       </div>
                     </div>
+
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Department<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <select class="select2_single form-control" tabindex="-1">
+                            <option></option>
+                            <option value="AK">Accounting</option>
+                            <option value="HI">Consulting</option>
+                            <option value="CA">Sales</option>
+                            <option value="NV">Human Resources</option>
+                            <option value="OR">Marketing</option>
+                            <option value="OR">Security</option>
+                            <option value="OR">IT</option>
+                          </select>
+                      </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Position<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <select class="select2_single form-control" tabindex="-1">
+                            <option></option>
+                            <option value="AK">General Manager</option>
+                            <option value="HI">Manager</option>
+                          </select>
+                      </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                      </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Salary<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -86,6 +138,8 @@
     </div>
     <?php include_once("./phpParts/endScripts.php")?>
         <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+            <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+
 
     	<script>
     $('#myDatepicker').datetimepicker();
