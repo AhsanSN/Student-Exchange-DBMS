@@ -39,7 +39,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Insert <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Employee</a></li>
+                      <li><a href="insertEmployee.php">Employee</a></li>
                       <li><a href="form_advanced.html">Importer</a></li>
                       <li><a href="form_validation.html">Exporter</a></li>
                       <li><a href="form_wizards.html">Transaction</a></li>
@@ -76,7 +76,7 @@
           </div>
         </div>
 
-        
+
         <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
