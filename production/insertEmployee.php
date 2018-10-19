@@ -96,7 +96,6 @@
                       </div>
                     </div>
 
-
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Department<span class="required"></span>
                           </label>
@@ -104,7 +103,6 @@
                           <div class="form-group">
                         
                           <select class="select2_single form-control" tabindex="-1">
-                            <option></option>
                             <option value="AK">Accounting</option>
                             <option value="HI">Consulting</option>
                             <option value="CA">Sales</option>
@@ -124,7 +122,6 @@
                           <div class="form-group">
                         
                           <select class="select2_single form-control" tabindex="-1">
-                            <option></option>
                             <option value="AK">General Manager</option>
                             <option value="HI">Manager</option>
                           </select>
@@ -149,6 +146,22 @@
                           <input type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Allowances<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                            <select class="select2_multiple form-control" multiple="multiple">
+                            <option>Car</option>
+                            <option>Fuel</option>
+                            <option>Mobile Credits</option>
+                            <option>Health Insurance</option>
+                          </select>
+                      </div>
+                      </div>
+                    </div>
 
                       <div class="ln_solid"></div>
                       <div class="form-group">
