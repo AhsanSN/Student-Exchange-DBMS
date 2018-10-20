@@ -81,7 +81,16 @@
                           <div class="form-group">
                           <input type="text" class="form-control" data-inputmask="'mask': '99-99-9999'">
                       </div>
-                      <hr>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                          <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
+                      </div>
+                      
                       </div>
                     </div>
                     <div class="form-group">
@@ -122,8 +131,11 @@
                           <div class="form-group">
                         
                           <select class="select2_single form-control" tabindex="-1">
+                            <option value="HI">Director</option>
                             <option value="AK">General Manager</option>
+                            <option value="AK">Ast. General Manager</option>
                             <option value="HI">Manager</option>
+                            <option value="HI">Ast. Manager</option>
                           </select>
                       </div>
                       </div>
@@ -163,6 +175,23 @@
                       </div>
                     </div>
 
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Car (if applicable)<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <select class="select2_single form-control" tabindex="-1">
+                            <option value="AK"> </option>
+                            <option value="AK">Suzuki Mehran</option>
+                            <option value="AK">Suzuki Cultus</option>
+                            <option value="AK">Toyota Corolla</option>
+                            <option value="AK">Honda City</option>
+                          </select>
+                      </div>
+                      </div>
+                    </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -183,6 +212,7 @@
     <?php include_once("./phpParts/endScripts.php")?>
         <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
             <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+            <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
 
     	<script>
