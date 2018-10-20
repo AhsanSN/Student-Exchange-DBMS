@@ -1,3 +1,10 @@
+<?php
+
+foreach ($_POST as $key => $value) {
+    echo "Field ".htmlspecialchars($key)." is ".htmlspecialchars($value)."<br>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include_once("./phpParts/head.php")?>
@@ -46,10 +53,10 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div id="gender" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                              <input required="required" type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
                             </label>
                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="female"> Female
+                              <input required="required" type="radio" name="gender" value="female"> Female
                             </label>
                           </div>
                         </div>
@@ -60,7 +67,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input name="mobileNumber" type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                          <input required="required" name="mobileNumber" type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
                       </div>
                       </div>
                     </div>
@@ -79,7 +86,7 @@
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
-                          <input type="text" name="cnic" class="form-control" data-inputmask="'mask': '99-99-9999'">
+                          <input required="required" type="text" name="cnic" class="form-control" data-inputmask="'mask': '99-99-9999'">
                       </div>
                       </div>
                     </div>
@@ -88,7 +95,7 @@
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
-                          <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
+                          <input required="required" type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
                       </div>
                       
                       </div>
@@ -99,7 +106,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" name="dob" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input required="required" type="text" name="dob" class="form-control" data-inputmask="'mask': '99/99/9999'">
                       </div>
                       <hr>
                       </div>
@@ -111,7 +118,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select name="department" class="select2_single form-control" tabindex="-1">
+                          <select required="required" name="department" class="select2_single form-control" tabindex="-1">
                             <option value="Accounting">Accounting</option>
                             <option value="Consulting">Consulting</option>
                             <option value="Sales">Sales</option>
@@ -130,7 +137,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select name="positon" class="select2_single form-control" tabindex="-1">
+                          <select required="required" name="positon" class="select2_single form-control" tabindex="-1">
                             <option value="Director">Director</option>
                             <option value="General Manager">General Manager</option>
                             <option value="Ast. General Manager">Ast. General Manager</option>
@@ -147,7 +154,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" name="doj" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input required="required" type="text" name="doj" class="form-control" data-inputmask="'mask': '99/99/9999'">
                       </div>
                       </div>
                     </div>
