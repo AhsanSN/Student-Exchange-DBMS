@@ -28,41 +28,40 @@
                   <li><a href="index.html"><i class="fa fa-home"></i> Home </span></a></li>
                   <li><a><i class="fa fa-table"></i> View <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Employees</a></li>
-                      <li><a href="form_advanced.html">Importers</a></li>
-                      <li><a href="form_advanced.html">Imports</a></li>
-                      <li><a href="form_validation.html">Exporters</a></li>
-                      <li><a href="form_validation.html">Exports</a></li>
-                      <li><a href="form_wizards.html">Transactions</a></li>
-                      <li><a href="form_buttons.html">Products</a></li>
+                      <li><a href="viewEmployees.php">Employees</a></li>
+                      <li><a href="viewSuppliers.php">Suppliers</a></li>
+                      <li><a href="viewDealers.php">Dealers</a></li>
+                      <li><a href="viewSuppliedOrders.php">Supplied Orders</a></li>
+                      <li><a href="viewDealedOrders.php">Dealed Orders</a></li>
+                      <li><a href="viewTransactions.php">Transactions</a></li>
+                      <li><a href="viewProducts.php">Products</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Insert <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="insertEmployee.php">Employee</a></li>
-                      <li><a href="form_advanced.html">Importer</a></li>
-                      <li><a href="form_validation.html">Exporter</a></li>
-                      <li><a href="form_wizards.html">Transaction</a></li>
-                      <li><a href="form_buttons.html">Product</a></li>
+                      <li><a href="insertSupplier.php">Supplier</a></li>
+                      <li><a href="insertDealer.php">Dealer</a></li>
+                      <li><a href="insertTransaction.php">Transaction</a></li>
+                      <li><a href="insertProduct.php">Product</a></li>
                     </ul>
                   </li>                  
                   <li><a><i class="fa fa-edit"></i> Edit <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Employees</a></li>
-                      <li><a href="form_advanced.html">Importers</a></li>
-                      <li><a href="form_validation.html">Exporters</a></li>
-                      <li><a href="form_buttons.html">Products</a></li>
+                      <li><a href="editEmployees.php">Employees</a></li>
+                      <li><a href="editSuppliers.php">Suppliers</a></li>
+                      <li><a href="editDealers.php">Dealers</a></li>
+                      <li><a href="editProducts.php">Products</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Remove <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Employees</a></li>
-                      <li><a href="form_advanced.html">Importers</a></li>
-                      <li><a href="form_validation.html">Exporters</a></li>
-                      <li><a href="form_buttons.html">Products</a></li>
+                      <li><a href="removeEmployees.php">Employees</a></li>
+                      <li><a href="removeSuppliers.php">Suppliers</a></li>
+                      <li><a href="removeDealers.php">Dealers</a></li>
+                      <li><a href="removeProducts.php">Products</a></li>
                     </ul>
                   </li>
-
                 </ul>
               </div>
               <br>
