@@ -30,14 +30,14 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input name="firstName" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="last-name" name="lastName" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                      
@@ -48,7 +48,7 @@
                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                               <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
                             </label>
-                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                               <input type="radio" name="gender" value="female"> Female
                             </label>
                           </div>
@@ -60,17 +60,17 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                          <input name="mobileNumber" type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
                       </div>
                       </div>
                     </div>
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Contact Number<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Mobile Number<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                          <input type="text" name="emergencyMobileNumber" class="form-control" data-inputmask="'mask': '+99-9999999999'">
                       </div>
                       </div>
                     </div>
@@ -79,7 +79,7 @@
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
-                          <input type="text" class="form-control" data-inputmask="'mask': '99-99-9999'">
+                          <input type="text" name="cnic" class="form-control" data-inputmask="'mask': '99-99-9999'">
                       </div>
                       </div>
                     </div>
@@ -99,7 +99,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input type="text" name="dob" class="form-control" data-inputmask="'mask': '99/99/9999'">
                       </div>
                       <hr>
                       </div>
@@ -111,14 +111,14 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select class="select2_single form-control" tabindex="-1">
-                            <option value="AK">Accounting</option>
-                            <option value="HI">Consulting</option>
-                            <option value="CA">Sales</option>
-                            <option value="NV">Human Resources</option>
-                            <option value="OR">Marketing</option>
-                            <option value="OR">Security</option>
-                            <option value="OR">IT</option>
+                          <select name="department" class="select2_single form-control" tabindex="-1">
+                            <option value="Accounting">Accounting</option>
+                            <option value="Consulting">Consulting</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Security">Security</option>
+                            <option value="IT">IT</option>
                           </select>
                       </div>
                       </div>
@@ -130,12 +130,12 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select class="select2_single form-control" tabindex="-1">
-                            <option value="HI">Director</option>
-                            <option value="AK">General Manager</option>
-                            <option value="AK">Ast. General Manager</option>
-                            <option value="HI">Manager</option>
-                            <option value="HI">Ast. Manager</option>
+                          <select name="positon" class="select2_single form-control" tabindex="-1">
+                            <option value="Director">Director</option>
+                            <option value="General Manager">General Manager</option>
+                            <option value="Ast. General Manager">Ast. General Manager</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Ast. Manager">Ast. Manager</option>
                           </select>
                       </div>
                       </div>
@@ -147,7 +147,7 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input type="text" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input type="text" name="doj" class="form-control" data-inputmask="'mask': '99/99/9999'">
                       </div>
                       </div>
                     </div>
@@ -155,7 +155,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Salary<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="number" name="salary" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -165,11 +165,11 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                            <select class="select2_multiple form-control" multiple="multiple">
-                            <option>Car</option>
-                            <option>Fuel</option>
-                            <option>Mobile Credits</option>
-                            <option>Health Insurance</option>
+                            <select name="allowances" class="select2_multiple form-control" multiple="multiple">
+                            <option value="Car">Car</option>
+                            <option value="Fuel">Fuel</option>
+                            <option value="Mobile Credits">Mobile Credits</option>
+                            <option value="Health Insurance">Health Insurance</option>
                           </select>
                       </div>
                       </div>
@@ -181,12 +181,12 @@
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select class="select2_single form-control" tabindex="-1">
-                            <option value="AK"> </option>
-                            <option value="AK">Suzuki Mehran</option>
-                            <option value="AK">Suzuki Cultus</option>
-                            <option value="AK">Toyota Corolla</option>
-                            <option value="AK">Honda City</option>
+                          <select name="car" class="select2_single form-control" tabindex="-1">
+                            <option value="none"> </option>
+                            <option value="Suzuki Mehran">Suzuki Mehran</option>
+                            <option value="Suzuki Cultus">Suzuki Cultus</option>
+                            <option value="Toyota Corolla">Toyota Corolla</option>
+                            <option value="Honda City">Honda City</option>
                           </select>
                       </div>
                       </div>
