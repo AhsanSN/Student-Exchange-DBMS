@@ -1,7 +1,22 @@
 <?php
 
-foreach ($_POST as $key => $value) {
-    echo "Field ".htmlspecialchars($key)." is ".htmlspecialchars($value)."<br>";
+if(isset($_POST['firstName'])){
+
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $gender = $_POST['gender'];
+  $mobileNumber = $_POST['mobileNumber'];
+  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
+  $cnic = $_POST['cnic'];
+  $country = $_POST['country'];
+  $dob = $_POST['dob'];
+  $department = $_POST['department'];
+  $position = $_POST['position'];
+  $doj = $_POST['doj'];
+  $salary = $_POST['salary'];
+  $car = $_POST['car'];
+
+  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$country.$dob.$department.$position.$doj.$salary.$car";
 }
 
 ?>
@@ -31,7 +46,7 @@ foreach ($_POST as $key => $value) {
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name<span class="required"></span>
@@ -137,7 +152,7 @@ foreach ($_POST as $key => $value) {
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" name="positon" class="select2_single form-control" tabindex="-1">
+                          <select required="required" name="position" class="select2_single form-control" tabindex="-1">
                             <option value="Director">Director</option>
                             <option value="General Manager">General Manager</option>
                             <option value="Ast. General Manager">Ast. General Manager</option>
@@ -165,22 +180,6 @@ foreach ($_POST as $key => $value) {
                           <input type="number" name="salary" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Allowances<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                            <select name="allowances" class="select2_multiple form-control" multiple="multiple">
-                            <option value="Car">Car</option>
-                            <option value="Fuel">Fuel</option>
-                            <option value="Mobile Credits">Mobile Credits</option>
-                            <option value="Health Insurance">Health Insurance</option>
-                          </select>
-                      </div>
-                      </div>
-                    </div>
 
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Car (if applicable)<span class="required"></span>
