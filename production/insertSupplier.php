@@ -86,7 +86,10 @@ if(isset($_POST['firstName'])){
                           <div class="form-group">
                         
                           <select required="required" name="product" class="select2_single form-control" tabindex="-1">
-                            <option value="Crude Oil">Crude Oil</option>                  
+                            <option value="Butane">Butane</option>
+                            <option value="Gasoline">Gasoline</option>
+                            <option value="Keroscene">Keroscene</option>
+                            <option value="Diesel">Diesel</option>                       
                           </select>
                       </div>
                       </div>
