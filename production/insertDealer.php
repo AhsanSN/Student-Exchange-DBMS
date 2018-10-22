@@ -4,10 +4,13 @@ if(isset($_POST['name'])){
 
   $name = $_POST['name'];
   $mobileNumber = $_POST['mobileNumber'];
-  $product = $_POST['product'];
   $address = $_POST['address'];
+  $products = $_POST['products'];
 
-  echo "$name. $mobileNumber. $product.$address ";
+  echo "$name. $mobileNumber.$address";
+  for ($i=0; $i < sizeof($products); $i++) { 
+    echo $products[$i];
+  }
 
 }
 
@@ -32,13 +35,13 @@ if(isset($_POST['name'])){
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Add Supplier</h2>
+                    <h2>Add Dealer</h2>
                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertSupplier.php" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertDealer.php" method="post">
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name<span class="required"></span>
@@ -47,7 +50,6 @@ if(isset($_POST['name'])){
                           <input name="name" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                  
 
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required"></span>
@@ -68,6 +70,7 @@ if(isset($_POST['name'])){
                           <input required="required" name="mobileNumber" type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
                       </div>
                       </div>
+             
                     </div>
 
                     <div class="form-group">
@@ -79,20 +82,24 @@ if(isset($_POST['name'])){
                       </div>
                       </div>
                     </div>
-                
+
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Product<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Dealed Products<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <select required="required" name="product" class="select2_single form-control" tabindex="-1">
-                            <option value="Butane">Butane</option>
-                            <option value="Gasoline">Gasoline</option>
-                            <option value="Keroscene">Keroscene</option>
-                            <option value="Diesel">Diesel</option>                       
-                          </select>
-                      </div>
+                      <p style="padding: 5px;">
+                        <input type="checkbox" name="products[]" id="hobby1" value="Brake Oil" data-parsley-mincheck="2" class="flat" />Brake Oil
+                        <br />
+
+                        <input type="checkbox" name="products[]" id="hobby2" value="run" class="flat" /> Running
+                        <br />
+
+                        <input type="checkbox" name="products[]" id="hobby3" value="eat" class="flat" /> Eating
+                        <br />
+
+                        <input type="checkbox" name="products[]" id="hobby4" value="sleep" class="flat" /> Sleeping
+                        <br />
+                        <p>
                       </div>
                     </div>
 
