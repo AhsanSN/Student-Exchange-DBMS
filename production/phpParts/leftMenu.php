@@ -42,7 +42,14 @@
                       <li><a href="insertEmployee.php">Employee</a></li>
                       <li><a href="insertSupplier.php">Supplier</a></li>
                       <li><a href="insertDealer.php">Dealer</a></li>
-                      <li><a href="insertTransaction.php">Transaction</a></li>
+                      <li><a>Transaction<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li><a href="insertTransaction.php?type=debit">Debit (Send)</a>
+                            </li>
+                            <li><a href="insertTransaction.php?type=credit">Credit (Receive)</a>
+                            </li>
+                          </ul>
+                        </li>
                       <li><a href="insertProduct.php">Product</a></li>
                     </ul>
                   </li>                  
