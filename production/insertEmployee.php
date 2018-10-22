@@ -8,7 +8,6 @@ if(isset($_POST['firstName'])){
   $mobileNumber = $_POST['mobileNumber'];
   $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
   $cnic = $_POST['cnic'];
-  $country = $_POST['country'];
   $dob = $_POST['dob'];
   $department = $_POST['department'];
   $position = $_POST['position'];
@@ -16,7 +15,7 @@ if(isset($_POST['firstName'])){
   $salary = $_POST['salary'];
   $car = $_POST['car'];
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$country.$dob.$department.$position.$doj.$salary.$car";
+  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
 }
 
 ?>
@@ -105,16 +104,7 @@ if(isset($_POST['firstName'])){
                       </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                          <input required="required" type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
-                      </div>
-                      
-                      </div>
-                    </div>
+        
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth<span class="required"></span>
                           </label>
