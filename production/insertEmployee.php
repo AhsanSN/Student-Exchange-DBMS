@@ -111,7 +111,7 @@ if(isset($_POST['firstName'])){
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="text" name="dob" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input required="required" type="date" name="dob" class="form-control" max="12-31-2014" min="12-31-1950">
                       </div>
                       <hr>
                       </div>
@@ -159,7 +159,7 @@ if(isset($_POST['firstName'])){
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="text" name="doj" class="form-control" data-inputmask="'mask': '99/99/9999'">
+                          <input required="required" type="date" max="12-31-2059" min="12-31-2000" name="doj" class="form-control">
                       </div>
                       </div>
                     </div>
