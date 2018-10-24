@@ -41,22 +41,25 @@
                      
                     </ul>
                   </li>                  
-                  <li><a><i class="fa fa-edit"></i> Edit <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="editEmployees.php">Employees</a></li>
-                      <li><a href="editSuppliers.php">Suppliers</a></li>
-                      <li><a href="editDealers.php">Dealers</a></li>
-                      <li><a href="editProducts.php">Products</a></li>
+                      <li><a href="editEmployees.php"> View Registered Students</a></li>
+                      <li><a href="editSuppliers.php"> Register Students</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Remove <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Organizations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="removeEmployees.php">Employees</a></li>
-                      <li><a href="removeSuppliers.php">Suppliers</a></li>
-                      <li><a href="removeDealers.php">Dealers</a></li>
-                      <li><a href="removeProducts.php">Products</a></li>
+                      <li><a href="editEmployees.php"> View Organizations</a></li>
+                      <li><a href="editSuppliers.php"> Insert Organization</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-edit"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="editSuppliers.php"> View Sponsors</a></li>
+                      <li><a href="editSuppliers.php"> Insert Sponsor</a></li>
+                    </ul>
+                  </li>
+                  
                 </ul>
               </div>
               <br>
