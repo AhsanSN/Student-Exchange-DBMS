@@ -28,7 +28,7 @@
                   <li><a href="index.php"><i class="fa fa-home"></i> Home </span></a></li>
                   <li><a><i class="fa fa-rocket"></i> Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="viewEmployees.php">View Programs</a></li>
+                      <li><a href="viewPrograms.php">View Programs</a></li>
                       <li><a href="insertEmployee.php">Create Program</a></li>
                     </ul>
                   </li>
@@ -41,7 +41,7 @@
                   <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="editEmployees.php"> View Registered Students</a></li>
-                      <li><a href="editSuppliers.php"> Register Students</a></li>
+                      <li><a href="insertStudent.php"> Register Student</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bank"></i> Organizations <span class="fa fa-chevron-down"></span></a>
