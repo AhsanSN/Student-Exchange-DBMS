@@ -9,98 +9,61 @@
         <!-- /top navigation -->
 
         <!-- page content -->
+        <br>
         <div class="right_col" role="main">
           <!-- top tiles -->
-          <h1 align="center">Employees</h1>
+          <br>
+          <h1 align="center">Summary</h1>
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Total Salaries Given</span>
-              <div class="count">$25,000</div>
+              <span class="count_top">Total Programs</span>
+              <div class="count">19</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">This Month Salaries</span>
-              <div class="count">$5,000</div>
+              <span class="count_top">Selected students</span>
+              <div class="count">182</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-money-o"></i>Male Employees</span>
+              <span class="count_top"><i class="fa fa-money-o"></i>Student Applications</span>
+              <div class="count">212</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>Shorlisted Students</span>
               <div class="count">123</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-money-o"></i>Female Employees</span>
-              <div class="count">123</div>
+              <span class="count_top"><i class="fa fa-money-o"></i>Rejected Students</span>
+              <div class="count">12</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Allowances</span>
-              <div class="count">$4,567</div>
+              <span class="count_top"><i class="fa fa-money-o"></i>Scholarships</span>
+              <div class="count">$12,000</div>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Expenses</span>
-              <div class="count">$2,315</div>
+              <span class="count_top"><i class="fa fa-money-o"></i>Total Organizations</span>
+              <div class="count">23</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>Startups</span>
+              <div class="count">13</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>NGO's</span>
+              <div class="count">14</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>Countries</span>
+              <div class="count">64</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>Cities</span>
+              <div class="count">142</div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money-o"></i>Student Fee</span>
+              <div class="count">$14,000</div>
             </div>
 
-            <h1 align="center">Imports</h1>
-            <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"> Account Balance</span>
-              <div class="count">$25,000</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> Total Profits</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-money-o"></i> Total Imports</span>
-              <div class="count">$2,315</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">This Month Imports</span>
-              <div class="count">$2,500</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Oil Import</span>
-              <div class="count">4,567 L</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Number of Importers</span>
-              <div class="count">7</div>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-
-            <h1 align="center">Exports</h1>
-            <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"> Account Balance</span>
-              <div class="count">$25,000</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>4% </i> Total Profits</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-money-o"></i> Total Imports</span>
-              <div class="count">$2,315</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">This Month Imports</span>
-              <div class="count">$2,500</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Oil Import</span>
-              <div class="count">4,567 L</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top">Number of Importers</span>
-              <div class="count">7</div>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
 
           </div>
           <!-- /top tiles -->       

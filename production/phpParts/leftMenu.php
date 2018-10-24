@@ -30,15 +30,12 @@
                     <ul class="nav child_menu">
                       <li><a href="viewEmployees.php">View Programs</a></li>
                       <li><a href="insertEmployee.php">Create Program</a></li>
-                      <li><a href="viewDealers.php">Dealers</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-mortar-board"></i> Chapters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="insertEmployee.php">View Chapters</a></li>
-                      <li><a href="insertSupplier.php">Create Chapter</a></li>
-                      <li><a href="insertDealer.php">Dealer</a></li>
-                     
+                      <li><a href="insertSupplier.php">Create Chapter</a></li>                     
                     </ul>
                   </li>                  
                   <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
