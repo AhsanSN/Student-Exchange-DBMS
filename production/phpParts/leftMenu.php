@@ -26,31 +26,19 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="index.php"><i class="fa fa-home"></i> Home </span></a></li>
-                  <li><a><i class="fa fa-table"></i> View <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="viewEmployees.php">Employees</a></li>
-                      <li><a href="viewSuppliers.php">Suppliers</a></li>
+                      <li><a href="viewEmployees.php">View Programs</a></li>
+                      <li><a href="insertEmployee.php">Create Program</a></li>
                       <li><a href="viewDealers.php">Dealers</a></li>
-                      <li><a href="viewSuppliedOrders.php">Supplied Orders</a></li>
-                      <li><a href="viewDealedOrders.php">Dealed Orders</a></li>
-                      <li><a href="viewTransactions.php">Transactions</a></li>
-                      <li><a href="viewProducts.php">Products</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Insert <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Chapters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="insertEmployee.php">Employee</a></li>
-                      <li><a href="insertSupplier.php">Supplier</a></li>
+                      <li><a href="insertEmployee.php">View Chapters</a></li>
+                      <li><a href="insertSupplier.php">Create Chapter</a></li>
                       <li><a href="insertDealer.php">Dealer</a></li>
-                      <li><a>Transaction<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li><a href="insertTransaction.php?type=debit">Debit (Send)</a>
-                            </li>
-                            <li><a href="insertTransaction.php?type=credit">Credit (Receive)</a>
-                            </li>
-                          </ul>
-                        </li>
-                      <li><a href="insertProduct.php">Product</a></li>
+                     
                     </ul>
                   </li>                  
                   <li><a><i class="fa fa-edit"></i> Edit <span class="fa fa-chevron-down"></span></a>
