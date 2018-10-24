@@ -26,14 +26,14 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="index.php"><i class="fa fa-home"></i> Home </span></a></li>
-                  <li><a><i class="fa fa-table"></i> Programs <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-rocket"></i> Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewEmployees.php">View Programs</a></li>
                       <li><a href="insertEmployee.php">Create Program</a></li>
                       <li><a href="viewDealers.php">Dealers</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Chapters <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-mortar-board"></i> Chapters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="insertEmployee.php">View Chapters</a></li>
                       <li><a href="insertSupplier.php">Create Chapter</a></li>
@@ -41,19 +41,19 @@
                      
                     </ul>
                   </li>                  
-                  <li><a><i class="fa fa-edit"></i> Students <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="editEmployees.php"> View Registered Students</a></li>
                       <li><a href="editSuppliers.php"> Register Students</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Organizations <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bank"></i> Organizations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="editEmployees.php"> View Organizations</a></li>
                       <li><a href="editSuppliers.php"> Insert Organization</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-money"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="editSuppliers.php"> View Sponsors</a></li>
                       <li><a href="editSuppliers.php"> Insert Sponsor</a></li>
