@@ -40,7 +40,7 @@
                   </li>                  
                   <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="editEmployees.php"> View Registered Students</a></li>
+                      <li><a href="viewRegisteredStudents.php"> View Registered Students</a></li>
                       <li><a href="insertStudent.php"> Register Student</a></li>
                     </ul>
                   </li>
