@@ -53,7 +53,7 @@
                   <li><a><i class="fa fa-money"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="editSuppliers.php"> View Sponsors</a></li>
-                      <li><a href="editSuppliers.php"> Insert Sponsor</a></li>
+                      <li><a href="insertSponser.php"> Insert Sponsor</a></li>
                     </ul>
                   </li>
                   
