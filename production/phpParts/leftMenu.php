@@ -29,7 +29,7 @@
                   <li><a><i class="fa fa-rocket"></i> Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewPrograms.php">View Programs</a></li>
-                      <li><a href="insertEmployee.php">Create Program</a></li>
+                      <li><a href="insertProgram.php">Create Program</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-mortar-board"></i> Chapters <span class="fa fa-chevron-down"></span></a>
