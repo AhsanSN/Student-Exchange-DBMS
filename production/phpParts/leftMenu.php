@@ -34,8 +34,8 @@
                   </li>
                   <li><a><i class="fa fa-mortar-board"></i> Chapters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="insertEmployee.php">View Chapters</a></li>
-                      <li><a href="insertSupplier.php">Create Chapter</a></li>                     
+                      <li><a href="viewChapter.php">View Chapters</a></li>
+                      <li><a href="insertChapter.php">Create Chapter</a></li>                     
                     </ul>
                   </li>                  
                   <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
