@@ -56,6 +56,11 @@
                       <li><a href="insertSponser.php"> Insert Sponsor</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-money"></i> Interview <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="viewInterviews.php"> View Interviews</a></li>
+                    </ul>
+                  </li>
                   
                 </ul>
               </div>
