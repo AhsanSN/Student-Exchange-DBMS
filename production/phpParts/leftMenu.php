@@ -46,8 +46,8 @@
                   </li>
                   <li><a><i class="fa fa-bank"></i> Organizations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="editEmployees.php"> View Organizations</a></li>
-                      <li><a href="editSuppliers.php"> Insert Organization</a></li>
+                      <li><a href="viewOrganization.php"> View Organizations</a></li>
+                      <li><a href="insertOrganization.php"> Insert Organization</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-money"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
