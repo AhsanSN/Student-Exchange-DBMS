@@ -52,13 +52,15 @@
                   </li>
                   <li><a><i class="fa fa-money"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="editSuppliers.php"> View Sponsors</a></li>
+                      <li><a href="viewSponsers.php"> View Sponsors</a></li>
                       <li><a href="insertSponser.php"> Insert Sponsor</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-money"></i> Interview <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewInterviews.php"> View Interviews</a></li>
+                      <li><a href="viewInterviewers.php"> View Interviewers</a></li>
+                      <li><a href="insertInterviewer.php"> Insert Interviewers</a></li>
                     </ul>
                   </li>
                   
