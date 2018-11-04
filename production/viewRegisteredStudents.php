@@ -34,6 +34,7 @@ if(isset($_POST['firstName'])){
           <div class="">
             <div class="page-title">
             </div>
+            
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -51,6 +52,8 @@ if(isset($_POST['firstName'])){
                           <th>City</th>
                           <th>Age</th>
                           <th>University</th>
+                          <th>Member since</th>
+                          <th>Email</th>
                           <th>Programs Selected for</th>
                           <th>Programs Applied for</th>
                         </tr>
@@ -63,6 +66,9 @@ if(isset($_POST['firstName'])){
                           <td>61</td>
                           <td>2011/04/25</td>
                           <td>$320,800</td>
+                          <td>Tiger Nixon</td>
+                          <td>System Architec<a href="viewStudentSelectedPrograms.php?id=123"> [View]</a></td>
+                          <td>Edinburgh</td>
                         </tr>
                         <tr>
                           <td>Garrett Winters</td>
