@@ -1,0 +1,138 @@
+-- sample data
+
+INSERT INTO dbo.countryOffice
+VALUES ('PK-586', 'Pakistan', 'workremotely.pakistan@hotmail.com', '0213-6786786')
+
+select * from dbo.countryOffice
+
+INSERT INTO dbo.cityChapter
+VALUES ('PK-586', 'Islamabad', 'islworkremotely@hotmail.com', '0213-4564564', 'Plot No. 55, 
+		Street ABC, Phase XYZ')
+
+select * from dbo.cityChapter
+
+INSERT INTO dbo.registeredMembers
+VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334',
+		1, CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
+		'Karachi University')
+
+select * from dbo.registeredMembers
+
+INSERT INTO dbo.organization
+VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
+
+select * from dbo.organization
+
+INSERT INTO dbo.program
+VALUES (NULL, 1, 'Program Clean Sweep', 'Pakistan', 'Karachi', 'Landhi', 
+		convert(date, '2019-03-15', 23), NULL, 'The program is aiming to clean up public spaces and spread awareness about the health hazards of uncleanliness.', 
+		'You have to be a registered member, thats all.', 1, 10, NULL)
+
+select * from dbo.program
+
+INSERT INTO dbo.employee
+VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, '1985-11-02', 23),
+		'0331-1234567', 'shadab.khan@gmail.com', 70000, 2)
+
+select * from dbo.employee
+
+INSERT INTO dbo.interview
+VALUES (1, 1, 1, 1, 'Plot No. 55, 
+		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 'Selected')
+
+select * from dbo.interview
+
+INSERT INTO dbo.programApplicant
+VALUES (1, 1)
+
+select * from dbo.programApplicant
+
+-- CREATE PROGRAM QUERY
+
+-- show organization in form
+
+select o.orgId, o.orgName
+from dbo.organization o
+
+-- insert program
+
+insert into dbo.program (employee_employeeId, organization_orgId, programName, programCountry, 
+		programCity, programLocation, programStartDate, programEndDate, programDescription, 
+		programRequirements, programType, programCapacity, programRemarks)
+values ($employee_employeeId, $organization_orgId, $programName, $programCountry, 
+		$programCity, $programLocation, $programStartDate, $programEndDate, $programDescription, 
+		$programRequirement, $programType, $programCapacity, $programRemarks)
+
+-- view program
+
+select p.programName, p.orgName, p.programStartDate, p.programEndDate, p.programLocation, 
+		p.programCountry, p.programCity, p.programDescription, p.programRequirements, 
+		p.programCapacity, pa.[No. of Applicants], i.[Selected Students] 
+from 
+(
+select *
+from dbo.program inner join dbo.organization on organization_orgId = orgId
+) p
+inner join
+(
+select program_programId, COUNT(*) as [No. of Applicants]
+from dbo.programApplicant
+group by program_programId
+) pa
+on p.programId = pa.program_programId
+inner join
+(
+select programApplicant_program_programId, COUNT(*) as [Selected Students]
+from dbo.interview
+where interviewResult = 'Selected'
+group by programApplicant_program_programId
+) i 
+on p.programId = i.programApplicant_program_programId
+
+-- CREATE CITY CHAPTER QUERY
+
+-- show country office in form
+
+select countryCode, countryName
+from dbo.countryOffice
+
+-- insert city chapter
+
+insert into dbo.cityChapter
+values ($countryOffice_countryCode, $chapterCity, $chapterEmail, $chapterPhone, $chapterAddress)
+
+-- view city chapter
+
+select cc.countryName, cc.chapterCity, cc.chapterAddress, cc.chapterEmail, cc.chapterPhone,
+		rm.[No. of Registered Members]
+from
+(
+select *
+from dbo.cityChapter inner join dbo.countryOffice on countryOffice_countryCode = countryCode
+) cc
+inner join
+(
+select chapterId, COUNT(*) as [No. of Registered Members]
+from dbo.cityChapter inner join dbo.registeredMembers on chapterId = cityChapter_chapterId
+group by chapterId
+) rm 
+on cc.chapterId = rm.chapterId
+
+-- CREATE MEMBER QUERY
+
+-- form will first ask to select country, then city chapter from selected country
+
+select countryCode, countryName
+from dbo.countryOffice
+
+select chapterId, chapterCity
+from dbo.cityChapter
+where countryOffice_countryCode = $countryCode
+
+-- insert member
+
+insert into registeredMembers
+values ($cityChapter_chapterId, $memberFullName, $memberEmail, $memberAddress, $memberPhone,
+		$memberStatus, $memberJoinDate, NULL, $memberDOB, $memberUniversity)
+
+-- view member
