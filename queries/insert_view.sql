@@ -1,62 +1,62 @@
 -- sample data
 
-INSERT INTO dbo.countryOffice
+INSERT INTO  countryOffice
 VALUES ('PK-586', 'Pakistan', 'workremotely.pakistan@hotmail.com', '0213-6786786')
 
-select * from dbo.countryOffice
+select * from  countryOffice
 
-INSERT INTO dbo.cityChapter
+INSERT INTO  cityChapter
 VALUES ('PK-586', 'Islamabad', 'islworkremotely@hotmail.com', '0213-4564564', 'Plot No. 55, 
 		Street ABC, Phase XYZ')
 
-select * from dbo.cityChapter
+select * from  cityChapter
 
-INSERT INTO dbo.registeredMembers
+INSERT INTO  registeredMembers
 VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334',
 		1, CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
 		'Karachi University')
 
-select * from dbo.registeredMembers
+select * from  registeredMembers
 
-INSERT INTO dbo.organization
+INSERT INTO  organization
 VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
 
-select * from dbo.organization
+select * from  organization
 
-INSERT INTO dbo.program
+INSERT INTO  program
 VALUES (NULL, 1, 'Program Clean Sweep', 'Pakistan', 'Karachi', 'Landhi', 
 		convert(date, '2019-03-15', 23), NULL, 'The program is aiming to clean up public spaces and spread awareness about the health hazards of uncleanliness.', 
 		'You have to be a registered member, thats all.', 1, 10, NULL)
 
-select * from dbo.program
+select * from  program
 
-INSERT INTO dbo.employee
+INSERT INTO  employee
 VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, '1985-11-02', 23),
 		'0331-1234567', 'shadab.khan@gmail.com', 70000, 2)
 
-select * from dbo.employee
+select * from  employee
 
-INSERT INTO dbo.interview
+INSERT INTO  interview
 VALUES (1, 1, 1, 1, 'Plot No. 55, 
 		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 'Selected')
 
-select * from dbo.interview
+select * from  interview
 
-INSERT INTO dbo.programApplicant
+INSERT INTO  programApplicant
 VALUES (1, 1)
 
-select * from dbo.programApplicant
+select * from  programApplicant
 
 -- CREATE PROGRAM QUERY
 
 -- show organization in form
 
 select o.orgId, o.orgName
-from dbo.organization o
+from  organization o
 
 -- insert program
 
-insert into dbo.program (employee_employeeId, organization_orgId, programName, programCountry, 
+insert into  program (employee_employeeId, organization_orgId, programName, programCountry, 
 		programCity, programLocation, programStartDate, programEndDate, programDescription, 
 		programRequirements, programType, programCapacity, programRemarks)
 values ($employee_employeeId, $organization_orgId, $programName, $programCountry, 
@@ -71,19 +71,19 @@ select p.programName, p.orgName, p.programStartDate, p.programEndDate, p.program
 from 
 (
 select *
-from dbo.program inner join dbo.organization on organization_orgId = orgId
+from  program inner join  organization on organization_orgId = orgId
 ) p
 inner join
 (
 select program_programId, COUNT(*) as [No. of Applicants]
-from dbo.programApplicant
+from  programApplicant
 group by program_programId
 ) pa
 on p.programId = pa.program_programId
 inner join
 (
 select programApplicant_program_programId, COUNT(*) as [Selected Students]
-from dbo.interview
+from  interview
 where interviewResult = 'Selected'
 group by programApplicant_program_programId
 ) i 
@@ -94,11 +94,11 @@ on p.programId = i.programApplicant_program_programId
 -- show country office in form
 
 select countryCode, countryName
-from dbo.countryOffice
+from  countryOffice
 
 -- insert city chapter
 
-insert into dbo.cityChapter
+insert into  cityChapter
 values ($countryOffice_countryCode, $chapterCity, $chapterEmail, $chapterPhone, $chapterAddress)
 
 -- view city chapter
@@ -108,12 +108,12 @@ select cc.countryName, cc.chapterCity, cc.chapterAddress, cc.chapterEmail, cc.ch
 from
 (
 select *
-from dbo.cityChapter inner join dbo.countryOffice on countryOffice_countryCode = countryCode
+from  cityChapter inner join  countryOffice on countryOffice_countryCode = countryCode
 ) cc
 inner join
 (
 select chapterId, COUNT(*) as [No. of Registered Members]
-from dbo.cityChapter inner join dbo.registeredMembers on chapterId = cityChapter_chapterId
+from  cityChapter inner join  registeredMembers on chapterId = cityChapter_chapterId
 group by chapterId
 ) rm 
 on cc.chapterId = rm.chapterId
@@ -123,10 +123,10 @@ on cc.chapterId = rm.chapterId
 -- form will first ask to select country, then city chapter from selected country
 
 select countryCode, countryName
-from dbo.countryOffice
+from  countryOffice
 
 select chapterId, chapterCity
-from dbo.cityChapter
+from  cityChapter
 where countryOffice_countryCode = $countryCode
 
 -- insert member
