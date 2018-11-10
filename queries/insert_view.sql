@@ -65,9 +65,15 @@ values ($employee_employeeId, $organization_orgId, $programName, $programCountry
 
 -- view program
 
-select p.programName, p.orgName, p.programStartDate, p.programEndDate, p.programLocation, 
+select p.programName, p.orgName,
+		case
+		when p.programType = 0 then 'Unpaid'
+		when p.programType = 1 then 'Paid'
+		end
+		as [Program Type],
+		p.programStartDate, p.programEndDate, p.programLocation, 
 		p.programCountry, p.programCity, p.programDescription, p.programRequirements, 
-		p.programCapacity, pa.[No. of Applicants], i.[Selected Students] 
+		p.programCapacity, pa.[No. of Applicants], i.[Selected Students]
 from 
 (
 select *
@@ -136,3 +142,57 @@ values ($cityChapter_chapterId, $memberFullName, $memberEmail, $memberAddress, $
 		$memberStatus, $memberJoinDate, NULL, $memberDOB, $memberUniversity)
 
 -- view member
+
+select 
+		mem.memberFullName, mem.countryName, mem.chapterCity, mem.memberDOB, mem.memberUniversity,
+		mem.memberJoinDate, mem.memberEmail, mem.[Programs Applied for], memprogram.programName
+		as [Program(s) Selected for]
+from
+(
+	select 
+			rm.memberId, rm.memberFullName, c.countryName, c.chapterCity, rm.memberDOB,
+			rm.memberUniversity, rm.memberJoinDate, rm.memberEmail, 
+			count(*) as [Programs Applied for]
+	from 
+			dbo.registeredMembers rm 
+			inner join
+			(
+				select *
+				from dbo.countryOffice co 
+				inner join 
+				dbo.cityChapter cc 
+				on co.countryCode = cc.countryOffice_countryCode
+			) c
+			on rm.cityChapter_chapterId = c.chapterId
+			inner join
+			dbo.programApplicant pa 
+			on rm.memberId = pa.registeredMembers_memberId
+			group by
+				rm.memberId, rm.memberFullName, c.countryName, c.chapterCity, rm.memberDOB,
+				rm.memberUniversity, rm.memberJoinDate, rm.memberEmail
+) mem
+inner join
+(
+	select 
+		pa.registeredMembers_memberId, p.programName
+	from 
+		dbo.programApplicant pa 
+		inner join 
+		dbo.interview i 
+		on pa.appId = i.programApplicant_appId
+		inner join
+		dbo.program p 
+		on pa.program_programId = p.programId
+		where i.interviewResult = 'Selected'
+) memprogram 
+on mem.memberId = memprogram.registeredMembers_memberId
+
+
+-- view member's program(s)
+
+select programName, programCountry, programCity, programLocation, datediff(week, programEndDate,
+		programStartDate) as [Duration], programStartDate, programEndDate, programDescription
+from dbo.interview inner join dbo.program on programApplicant_program_programId = programId
+where interviewResult = 'Selected'
+		and programApplicant_registeredMembers_memberId = $memberId
+
