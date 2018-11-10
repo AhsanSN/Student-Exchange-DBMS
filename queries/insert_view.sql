@@ -195,4 +195,3 @@ select programName, programCountry, programCity, programLocation, datediff(week,
 from dbo.interview inner join dbo.program on programApplicant_program_programId = programId
 where interviewResult = 'Selected'
 		and programApplicant_registeredMembers_memberId = $memberId
-
