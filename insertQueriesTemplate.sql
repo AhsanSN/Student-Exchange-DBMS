@@ -48,11 +48,20 @@ INSERT INTO  employee(countryOffice_countryCode, employeeFullName, employeeJoini
 VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, '1985-11-02', 23),
 		'0331-1234567', 'shadab.khan@gmail.com', 70000, 2)
 **/
-INSERT INTO  interview
+
+
+INSERT INTO  interview (programApplicant_program_programId, programApplicant_registeredMembers_memberId, programApplicant_appId, employee_employeeId, interviewLocation, interviewDateTime, interviewResult)
+VALUES (1, 1, 1, 1, 'Plot No. 55, 
+		Street ABC, Phase XYZ',  '2018-11-01', 'Selected')
+/**
+INSERT INTO  interview (programApplicant_program_programId, programApplicant_registeredMembers_memberId, programApplicant_appId, employee_employeeId, interviewLocation, interviewDateTime, interviewResult)
 VALUES (1, 1, 1, 1, 'Plot No. 55, 
 		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 'Selected')
+**/
 
-INSERT INTO  programApplicant
+
+
+INSERT INTO  programApplicant (registeredMembers_memberId, program_programId)
 VALUES (1, 1)
 
 -- CREATE PROGRAM QUERY
