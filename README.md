@@ -21,4 +21,10 @@ A data management system for an oil company.
 
 6. Register Student working (have to add country office option)
 
-7. 
+7. Employee gender added
+
+8. Insert employee working
+
+9. view registered members working (should show numbers in 'programs selected for')
+
+10. view a members program working
