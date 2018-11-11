@@ -28,3 +28,6 @@ A data management system for an oil company.
 9. view registered members working (should show numbers in 'programs selected for')
 
 10. view a members program working
+
+11. create organization working
+
