@@ -1,0 +1,4 @@
+
+1.  Adding payment from a paid program to a student's total earning.
+
+2.  Ending the program and entering the final report
