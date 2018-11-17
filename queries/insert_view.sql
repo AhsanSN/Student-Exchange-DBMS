@@ -1,62 +1,62 @@
 -- sample data
 
-INSERT INTO  countryOffice
+INSERT INTO dbo.countryOffice
 VALUES ('PK-586', 'Pakistan', 'workremotely.pakistan@hotmail.com', '0213-6786786')
 
-select * from  countryOffice
+select * from dbo.countryOffice
 
-INSERT INTO  cityChapter
+INSERT INTO dbo.cityChapter
 VALUES ('PK-586', 'Islamabad', 'islworkremotely@hotmail.com', '0213-4564564', 'Plot No. 55, 
 		Street ABC, Phase XYZ')
 
-select * from  cityChapter
+select * from dbo.cityChapter
 
-INSERT INTO  registeredMembers
+INSERT INTO dbo.registeredMembers
 VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334',
 		1, CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
 		'Karachi University')
 
-select * from  registeredMembers
+select * from dbo.registeredMembers
 
-INSERT INTO  organization
+INSERT INTO dbo.organization
 VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
 
-select * from  organization
+select * from dbo.organization
 
-INSERT INTO  program
+INSERT INTO dbo.program
 VALUES (NULL, 1, 'Program Clean Sweep', 'Pakistan', 'Karachi', 'Landhi', 
 		convert(date, '2019-03-15', 23), NULL, 'The program is aiming to clean up public spaces and spread awareness about the health hazards of uncleanliness.', 
 		'You have to be a registered member, thats all.', 1, 10, NULL)
 
-select * from  program
+select * from dbo.program
 
-INSERT INTO  employee
+INSERT INTO dbo.employee
 VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, '1985-11-02', 23),
 		'0331-1234567', 'shadab.khan@gmail.com', 70000, 2)
 
-select * from  employee
+select * from dbo.employee
 
-INSERT INTO  interview
+INSERT INTO dbo.interview
 VALUES (1, 1, 1, 1, 'Plot No. 55, 
 		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 'Selected')
 
-select * from  interview
+select * from dbo.interview
 
-INSERT INTO  programApplicant
+INSERT INTO dbo.programApplicant
 VALUES (1, 1)
 
-select * from  programApplicant
+select * from dbo.programApplicant
 
 -- CREATE PROGRAM QUERY
 
 -- show organization in form
 
 select o.orgId, o.orgName
-from  organization o
+from dbo.organization o
 
 -- insert program
 
-insert into  program (employee_employeeId, organization_orgId, programName, programCountry, 
+insert into dbo.program (employee_employeeId, organization_orgId, programName, programCountry, 
 		programCity, programLocation, programStartDate, programEndDate, programDescription, 
 		programRequirements, programType, programCapacity, programRemarks)
 values ($employee_employeeId, $organization_orgId, $programName, $programCountry, 
@@ -77,19 +77,19 @@ select p.programName, p.orgName,
 from 
 (
 select *
-from  program inner join  organization on organization_orgId = orgId
+from dbo.program inner join dbo.organization on organization_orgId = orgId
 ) p
 inner join
 (
 select program_programId, COUNT(*) as [No. of Applicants]
-from  programApplicant
+from dbo.programApplicant
 group by program_programId
 ) pa
 on p.programId = pa.program_programId
 inner join
 (
 select programApplicant_program_programId, COUNT(*) as [Selected Students]
-from  interview
+from dbo.interview
 where interviewResult = 'Selected'
 group by programApplicant_program_programId
 ) i 
@@ -100,11 +100,11 @@ on p.programId = i.programApplicant_program_programId
 -- show country office in form
 
 select countryCode, countryName
-from  countryOffice
+from dbo.countryOffice
 
 -- insert city chapter
 
-insert into  cityChapter
+insert into dbo.cityChapter
 values ($countryOffice_countryCode, $chapterCity, $chapterEmail, $chapterPhone, $chapterAddress)
 
 -- view city chapter
@@ -114,12 +114,12 @@ select cc.countryName, cc.chapterCity, cc.chapterAddress, cc.chapterEmail, cc.ch
 from
 (
 select *
-from  cityChapter inner join  countryOffice on countryOffice_countryCode = countryCode
+from dbo.cityChapter inner join dbo.countryOffice on countryOffice_countryCode = countryCode
 ) cc
 inner join
 (
 select chapterId, COUNT(*) as [No. of Registered Members]
-from  cityChapter inner join  registeredMembers on chapterId = cityChapter_chapterId
+from dbo.cityChapter inner join dbo.registeredMembers on chapterId = cityChapter_chapterId
 group by chapterId
 ) rm 
 on cc.chapterId = rm.chapterId
@@ -129,10 +129,10 @@ on cc.chapterId = rm.chapterId
 -- form will first ask to select country, then city chapter from selected country
 
 select countryCode, countryName
-from  countryOffice
+from dbo.countryOffice
 
 select chapterId, chapterCity
-from  cityChapter
+from dbo.cityChapter
 where countryOffice_countryCode = $countryCode
 
 -- insert member
@@ -195,3 +195,59 @@ select programName, programCountry, programCity, programLocation, datediff(week,
 from dbo.interview inner join dbo.program on programApplicant_program_programId = programId
 where interviewResult = 'Selected'
 		and programApplicant_registeredMembers_memberId = $memberId
+
+
+-- CREATE ORGANIZATION
+
+-- insert organization
+
+insert into organization(orgName, orgAddress, orgEmail, orgPhone)
+values ($orgName, $orgAddress, $orgEmail, $orgPhone)
+
+-- view organization
+
+select orgName, orgAddress, orgEmail, orgPhone
+from organization
+
+-- WHEN YOU VIEW PROGRAM AND CLICK ON [NO. OF APPLICANTS], IT TAKES YOU TO A PAGE THAT
+-- SHOWS THE DETAILS OF THOSE WHO HAVE APPLIED ON THAT PROGRAM
+-- IT RETURNS MEMBERID, PROGRAMID and APPID so THAT IT CAN BE USED TO CREATE INTERVIEW
+
+select aa.memberId, ab.appId, ab.programId, aa.memberFullName, aa.programName as [Programs Selected for], aa.memberEmail, ab.[Call for Interview]
+from
+(select rm.memberId, rm.memberFullName, pr.programName, rm.memberEmail
+from registeredMembers rm inner join interview iv 
+		on rm.memberId = iv.programApplicant_registeredMembers_memberId
+		inner join program pr on iv.programApplicant_program_programId = pr.programId
+where iv.interviewResult = 'Selected') aa
+inner join
+(select pa.appId, pr.programId, iv.programApplicant_registeredMembers_memberId,
+case
+	when iv.interviewId is null then 'Call'
+	else iv.interviewResult
+end as [Call for Interview]
+from program pr inner join programApplicant pa on pr.programId = pa.program_programId
+		inner join interview iv on pa.appId = iv.programApplicant_appId
+where pr.programId = 1) ab on aa.memberId = ab.programApplicant_registeredMembers_memberId
+
+-- ONCE YOU CLICK ON CALL IT WILL REDIRECT ON A PAGE THAT CREATES INTERVIEW FOR THAT
+-- PARTICULAR PROGRAM AND MEMBER
+
+insert into interview(programApplicant_program_programId, 
+	programApplicant_registeredMembers_memberId, programApplicant_appId, employee_employeeId,
+	interviewLocation, interviewDateTime, interviewResult)
+values ($programApplicant_program_programId, 
+	$programApplicant_registeredMembers_memberId, $programApplicant_appId, $employee_employeeId,
+	$interviewLocation, $interviewDateTime, null)
+
+-- employee id will be selected here
+select em.employeeId, em.employeeFullName
+from employee em
+where em.employeeType = $Interviewer
+
+-- ADD PROGRAM REPORT
+
+insert into programReport(program_programId, accomodationRating, travelRating, experienceRating,
+		workRating)
+values ($program_programId, $accomodationRating, $travelRating, $experienceRating,
+		$workRating)
