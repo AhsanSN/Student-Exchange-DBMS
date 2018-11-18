@@ -31,3 +31,6 @@ A data management system for an oil company.
 
 11. create organization working
 
+12. Add rating working
+
+13. Call for interview done (not tested)
