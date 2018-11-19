@@ -36,3 +36,5 @@ A data management system for an oil company.
 13. Call for interview done (not tested)
 
 14. view interviewers working. (needs proper query)
+
+15. View Organizations working
