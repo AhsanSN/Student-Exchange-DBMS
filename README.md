@@ -19,7 +19,7 @@ A data management system for an oil company.
 
 5. view chapters working
 
-6. Register Student working (have to add country office option)
+6. Register Student working 
 
 7. Employee gender added
 
