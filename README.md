@@ -19,7 +19,7 @@ A data management system for an oil company.
 
 5. view chapters working
 
-6. Register Student working (have to add country office option)
+6. Register Student working 
 
 7. Employee gender added
 
@@ -31,3 +31,12 @@ A data management system for an oil company.
 
 11. create organization working
 
+12. Add rating working
+
+13. Call for interview done (not tested)
+
+14. view interviewers working. (needs proper query)
+
+15. View Organizations working
+
+16. Apply for program working
