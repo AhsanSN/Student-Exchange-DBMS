@@ -11,12 +11,17 @@ VALUES ('PK-586', 'Islamabad', 'islworkremotely@hotmail.com', '0213-4564564', 'P
 
 select * from dbo.cityChapter
 
-INSERT INTO dbo.registeredMembers
-VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334',
-		1, CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
+INSERT INTO dbo.registeredMembers 
+VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334', 
+		CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
 		'Karachi University')
 
 select * from dbo.registeredMembers
+
+INSERT INTO dbo.memberAccount
+VALUES (1, 'MyPassword', null, null, null)
+
+select * from dbo.memberAccount
 
 INSERT INTO dbo.organization
 VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
@@ -26,9 +31,14 @@ select * from dbo.organization
 INSERT INTO dbo.program
 VALUES (NULL, 1, 'Program Clean Sweep', 'Pakistan', 'Karachi', 'Landhi', 
 		convert(date, '2019-03-15', 23), NULL, 'The program is aiming to clean up public spaces and spread awareness about the health hazards of uncleanliness.', 
-		'You have to be a registered member, thats all.', 1, 10, NULL)
+		'You have to be a registered member, thats all.', 1, 10)
 
 select * from dbo.program
+
+INSERT INTO dbo.programFinance
+VALUES (1, 5, 'Painting murals, Disposing trash')
+
+select * from dbo.programFinance
 
 INSERT INTO dbo.employee
 VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, '1985-11-02', 23),
@@ -36,16 +46,23 @@ VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, 
 
 select * from dbo.employee
 
-INSERT INTO dbo.interview
-VALUES (1, 1, 1, 1, 'Plot No. 55, 
-		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 'Selected')
-
-select * from dbo.interview
-
 INSERT INTO dbo.programApplicant
 VALUES (1, 1)
 
 select * from dbo.programApplicant
+
+
+INSERT INTO dbo.interview (programApplicant_program_programId, 
+		programApplicant_registeredMembers_memberId, programApplicant_appId,
+		employee_employeeId, interviewLocation, interviewDate, interviewTime, interviewResult)
+VALUES (1, 1, 1, 1, 'Plot No. 55, 
+		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 
+		CAST('12:35:00' AS time(0)), 'Selected')   
+
+
+select * from dbo.interview
+
+
 
 -- CREATE PROGRAM QUERY
 
@@ -58,7 +75,7 @@ from dbo.organization o
 
 insert into dbo.program (employee_employeeId, organization_orgId, programName, programCountry, 
 		programCity, programLocation, programStartDate, programEndDate, programDescription, 
-		programRequirements, programType, programCapacity, programRemarks)
+		programRequirements, programType, programCapacity)
 values ($employee_employeeId, $organization_orgId, $programName, $programCountry, 
 		$programCity, $programLocation, $programStartDate, $programEndDate, $programDescription, 
 		$programRequirement, $programType, $programCapacity, $programRemarks)
@@ -71,9 +88,18 @@ select p.programName, p.orgName,
 		when p.programType = 1 then 'Paid'
 		end
 		as [Program Type],
+		case
+		when em.employeeId is null then 'Assign Program Head'
+		else em.employeeFullName
+		end as [Program Head],
 		p.programStartDate, p.programEndDate, p.programLocation, 
 		p.programCountry, p.programCity, p.programDescription, p.programRequirements, 
-		p.programCapacity, pa.[No. of Applicants], i.[Selected Students]
+		p.programCapacity, pa.[No. of Applicants], i.[Selected Students],
+		case
+		when p.programEndDate is null then 'Mark as Ended'
+		when p.programEndDate is not null then 'See Program Report'
+		end
+		as [Mark as Ended]
 from 
 (
 select *
@@ -94,6 +120,51 @@ where interviewResult = 'Selected'
 group by programApplicant_program_programId
 ) i 
 on p.programId = i.programApplicant_program_programId
+left outer join
+employee em on p.employee_employeeId = em.employeeId
+
+-- Assign Program Head
+
+select employeeId, employeeFullName
+from employee
+where employeeType = 1
+
+
+-- WHEN MEMBER VIEWS PROGRAM
+
+select pr.programId, pr.programName, org.orgName,
+		case
+		when pr.programType = 0 then 'Unpaid'
+		when pr.programType = 1 then 'Paid'
+		end
+		as [Program Type],
+		pr.programStartDate, pr.programEndDate, pr.programLocation, 
+		pr.programCountry, pr.programCity, pr.programDescription, pr.programRequirements,
+		'Apply' as [Apply for Program]
+from program pr inner join organization org on pr.organization_orgId = org.orgId
+where pr.programId not in (select program_programId
+from programApplicant
+where registeredMembers_memberId = 2
+)
+union
+select pr.programId, pr.programName, org.orgName,
+		case
+		when pr.programType = 0 then 'Unpaid'
+		when pr.programType = 1 then 'Paid'
+		end
+		as [Program Type],
+		pr.programStartDate, pr.programEndDate, pr.programLocation, 
+		pr.programCountry, pr.programCity, pr.programDescription, pr.programRequirements,
+		case
+			when iv.interviewId is null then 'Applied - Wait for Interview Call'
+			else iv.interviewResult
+		end as [Apply for Program]
+from program pr 
+		inner join organization org on pr.organization_orgId = org.orgId
+		inner join programApplicant pa on pr.programId = pa.program_programId
+		left outer join interview iv on pa.appId = iv.programApplicant_appId
+where pa.registeredMembers_memberId = 2
+
 
 -- CREATE CITY CHAPTER QUERY
 
@@ -138,15 +209,14 @@ where countryOffice_countryCode = $countryCode
 -- insert member
 
 insert into registeredMembers
-values ($cityChapter_chapterId, $memberFullName, $memberEmail, $memberAddress, $memberPhone,
-		$memberStatus, $memberJoinDate, NULL, $memberDOB, $memberUniversity)
+values ()
 
 -- view member
 
 select 
 		mem.memberFullName, mem.countryName, mem.chapterCity, mem.memberDOB, mem.memberUniversity,
-		mem.memberJoinDate, mem.memberEmail, mem.[Programs Applied for], memprogram.programName
-		as [Program(s) Selected for]
+		mem.memberJoinDate, mem.memberEmail, mem.[Programs Applied for], 
+		memprogram.ProgramCount as [Program(s) Selected for]
 from
 (
 	select 
@@ -174,7 +244,7 @@ from
 inner join
 (
 	select 
-		pa.registeredMembers_memberId, p.programName
+		pa.registeredMembers_memberId, Count(*) as [ProgramCount]
 	from 
 		dbo.programApplicant pa 
 		inner join 
@@ -184,6 +254,7 @@ inner join
 		dbo.program p 
 		on pa.program_programId = p.programId
 		where i.interviewResult = 'Selected'
+		group by pa.registeredMembers_memberId
 ) memprogram 
 on mem.memberId = memprogram.registeredMembers_memberId
 
@@ -213,7 +284,8 @@ from organization
 -- SHOWS THE DETAILS OF THOSE WHO HAVE APPLIED ON THAT PROGRAM
 -- IT RETURNS MEMBERID, PROGRAMID and APPID so THAT IT CAN BE USED TO CREATE INTERVIEW
 
-select aa.memberId, ab.appId, ab.programId, aa.memberFullName, aa.programName as [Programs Selected for], aa.memberEmail, ab.[Call for Interview]
+/*
+select aa.memberId, ab.appId, ab.programId, aa.memberFullName, aa.memberEmail, ab.[Call for Interview]
 from
 (select rm.memberId, rm.memberFullName, pr.programName, rm.memberEmail
 from registeredMembers rm inner join interview iv 
@@ -229,6 +301,21 @@ end as [Call for Interview]
 from program pr inner join programApplicant pa on pr.programId = pa.program_programId
 		inner join interview iv on pa.appId = iv.programApplicant_appId
 where pr.programId = 1) ab on aa.memberId = ab.programApplicant_registeredMembers_memberId
+*/
+
+select ab.memberFullName, ab.memberEmail,
+case
+	when iv.interviewId is null then 'Call'
+	else iv.interviewResult
+end as [Call for Interview]
+from
+(
+select pa.*, rm.memberFullName, rm.memberEmail
+from programApplicant pa inner join registeredMembers rm 
+		on pa.registeredMembers_memberId = rm.memberId
+where pa.program_programId = 1
+) ab
+inner join interview iv on ab.appId = iv.programApplicant_appId
 
 -- ONCE YOU CLICK ON CALL IT WILL REDIRECT ON A PAGE THAT CREATES INTERVIEW FOR THAT
 -- PARTICULAR PROGRAM AND MEMBER
@@ -238,12 +325,12 @@ insert into interview(programApplicant_program_programId,
 	interviewLocation, interviewDateTime, interviewResult)
 values ($programApplicant_program_programId, 
 	$programApplicant_registeredMembers_memberId, $programApplicant_appId, $employee_employeeId,
-	$interviewLocation, $interviewDateTime, null)
+	$interviewLocation, $interviewDateTime, 'Called for Interview')
 
 -- employee id will be selected here
 select em.employeeId, em.employeeFullName
 from employee em
-where em.employeeType = $Interviewer
+where em.employeeType = 2
 
 -- ADD PROGRAM REPORT
 
@@ -251,3 +338,21 @@ insert into programReport(program_programId, accomodationRating, travelRating, e
 		workRating)
 values ($program_programId, $accomodationRating, $travelRating, $experienceRating,
 		$workRating)
+
+
+-- VIEW SPONSOR
+
+select sp.sponsorName, co.countryName, sp.sponsorEmail, sp.sponsorPhone
+from sponsor sp inner join countryOffice co on sp.countryOffice_countryCode = co.countryCode
+
+
+-- VIEW INTERVIEWS
+
+select rm.memberFullName, pr.programName, org.orgName, iv.interviewDate, iv.interviewTime,
+		em.employeeFullName
+from interview iv inner join registeredMembers rm 
+			on iv.programApplicant_registeredMembers_memberId = rm.memberId
+		inner join program pr on iv.programApplicant_program_programId = pr.programId
+		inner join organization org on pr.programId = org.orgId
+		inner join employee em on iv.employee_employeeId = em.employeeId
+where iv.interviewResult = 'Pending'
