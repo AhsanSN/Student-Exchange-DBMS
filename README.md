@@ -60,7 +60,7 @@ Interview DateTime are seperate [DONE] [done]
 
 Remove MemberStatus from RegisteredMembers [DONE] [done]
 
-Member logs in, looks at Programs, Programs shows cases such as Apply, Selected, Called, Rejected [DONE]
+Member logs in, looks at Programs, Programs shows cases such as Apply, Selected, Called, Rejected [DONE] [working but creates 2 rows]
 
 registeredMembers program selected for should show an integer (count) [DONE] [ok]
 
@@ -74,3 +74,10 @@ make member account, add password attribute, add withdraw option [DONE]
   [password option added] attrbute name: memberPassword in 'registeredMember'
 
 remove program remarks [DONE] [done]
+
+
+### whats left
+
+1. view program report
+
+2. view member's program work but creates 2 rows
