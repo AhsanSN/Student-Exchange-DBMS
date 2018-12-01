@@ -18,12 +18,24 @@ VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR'
 
 select * from dbo.registeredMembers
 
-INSERT INTO dbo.memberAccount
-VALUES (3, 0, 0)
+--- TRIGGER: CREATE MEMBER ACCOUNT ---
 
+create trigger CreateMemberAccount
+on registeredMembers 
+after insert
+AS
+	declare @MemberID int;
+
+	select @MemberID = i.memberId from inserted i;
+
+	insert into memberAccount
+	values (@MemberID, 0, 0)
+
+GO
 
 select * from dbo.memberAccount
 
+------
 
 INSERT INTO dbo.organization
 VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
@@ -153,6 +165,11 @@ where employeeType = 1
 
 -- WHEN MEMBER VIEWS PROGRAM
 
+CREATE PROCEDURE MemberViewsPrograms
+@MemberID int
+AS
+
+BEGIN
 
 select pr.programId, pr.programName, org.orgName,
 		case
@@ -166,7 +183,7 @@ select pr.programId, pr.programName, org.orgName,
 from program pr inner join organization org on pr.organization_orgId = org.orgId
 where pr.programId not in (select program_programId
 from programApplicant
-where registeredMembers_memberId = 2
+where registeredMembers_memberId = @MemberID
 )
 union
 select pr.programId, pr.programName, org.orgName,
@@ -185,8 +202,13 @@ from program pr
 		inner join organization org on pr.organization_orgId = org.orgId
 		inner join programApplicant pa on pr.programId = pa.program_programId
 		left outer join interview iv on pa.appId = iv.programApplicant_appId
-where pa.registeredMembers_memberId = 3
+where pa.registeredMembers_memberId = @MemberID
 
+END
+
+--- View Programs for Member 3 ---
+
+exec MemberViewsPrograms 3
 
 
 -- CREATE CITY CHAPTER QUERY
