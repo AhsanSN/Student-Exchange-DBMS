@@ -12,16 +12,18 @@ VALUES ('PK-586', 'Islamabad', 'islworkremotely@hotmail.com', '0213-4564564', 'P
 select * from dbo.cityChapter
 
 INSERT INTO dbo.registeredMembers 
-VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', '0333-1122334', 
+VALUES (1, 'John Doe', 'johndoe@gmail.com', 'Plot No. 56, Street DEF, Phase PQR', 'MyPassword', '0333-1122334', 
 		CONVERT(date, '2017-03-11', 23), NULL, CONVERT(date, '1995-05-15', 23), 
 		'Karachi University')
 
 select * from dbo.registeredMembers
 
 INSERT INTO dbo.memberAccount
-VALUES (1, 'MyPassword', null, null, null)
+VALUES (3, 0, 0)
+
 
 select * from dbo.memberAccount
+
 
 INSERT INTO dbo.organization
 VALUES ('Clean Karachi', 'DHA Phase 6', 'clean.khi@gmail.com', '0213-4920000')
@@ -36,7 +38,7 @@ VALUES (NULL, 1, 'Program Clean Sweep', 'Pakistan', 'Karachi', 'Landhi',
 select * from dbo.program
 
 INSERT INTO dbo.programFinance
-VALUES (1, 5, 'Painting murals, Disposing trash')
+VALUES (1,200.00, 'Painting murals, Disposing trash')
 
 select * from dbo.programFinance
 
@@ -47,7 +49,7 @@ VALUES ('PK-586', 'Shadab Khan', convert(date, '2011-01-05', 23), convert(date, 
 select * from dbo.employee
 
 INSERT INTO dbo.programApplicant
-VALUES (1, 1)
+VALUES (3, 1)
 
 select * from dbo.programApplicant
 
@@ -55,7 +57,7 @@ select * from dbo.programApplicant
 INSERT INTO dbo.interview (programApplicant_program_programId, 
 		programApplicant_registeredMembers_memberId, programApplicant_appId,
 		employee_employeeId, interviewLocation, interviewDate, interviewTime, interviewResult)
-VALUES (1, 1, 1, 1, 'Plot No. 55, 
+VALUES (1, 3, 2, 1, 'Plot No. 55, 
 		Street ABC, Phase XYZ', convert(date, '2018-11-01', 23), 
 		CAST('12:35:00' AS time(0)), 'Selected')   
 
@@ -81,6 +83,10 @@ values ($employee_employeeId, $organization_orgId, $programName, $programCountry
 		$programRequirement, $programType, $programCapacity, $programRemarks)
 
 -- view program
+
+CREATE PROCEDURE AdminViewsPrograms
+AS
+BEGIN
 
 select p.programName, p.orgName,
 		case
@@ -123,6 +129,21 @@ on p.programId = i.programApplicant_program_programId
 left outer join
 employee em on p.employee_employeeId = em.employeeId
 
+END
+
+GO
+
+--- Admin Views Programs ---
+
+exec AdminViewsPrograms
+
+-- If program is paid, user clicks on paid:
+
+select cast(pf.payPerDay as varchar) + '$' as [Pay per Day], pf.typeOfWork
+from program p inner join programFinance pf on p.programId = pf.program_programId
+where p.programId = 1
+
+
 -- Assign Program Head
 
 select employeeId, employeeFullName
@@ -131,6 +152,7 @@ where employeeType = 1
 
 
 -- WHEN MEMBER VIEWS PROGRAM
+
 
 select pr.programId, pr.programName, org.orgName,
 		case
@@ -163,7 +185,8 @@ from program pr
 		inner join organization org on pr.organization_orgId = org.orgId
 		inner join programApplicant pa on pr.programId = pa.program_programId
 		left outer join interview iv on pa.appId = iv.programApplicant_appId
-where pa.registeredMembers_memberId = 2
+where pa.registeredMembers_memberId = 3
+
 
 
 -- CREATE CITY CHAPTER QUERY
@@ -213,6 +236,10 @@ values ()
 
 -- view member
 
+CREATE PROCEDURE ViewMembers
+AS
+BEGIN
+
 select 
 		mem.memberFullName, mem.countryName, mem.chapterCity, mem.memberDOB, mem.memberUniversity,
 		mem.memberJoinDate, mem.memberEmail, mem.[Programs Applied for], 
@@ -258,15 +285,35 @@ inner join
 ) memprogram 
 on mem.memberId = memprogram.registeredMembers_memberId
 
+END
+
+GO
+
+--- View All Members --- 
+
+exec ViewMembers
 
 -- view member's program(s)
+
+CREATE PROCEDURE ViewMemberPrograms
+@MemberID int
+AS
+
+BEGIN
 
 select programName, programCountry, programCity, programLocation, datediff(week, programEndDate,
 		programStartDate) as [Duration], programStartDate, programEndDate, programDescription
 from dbo.interview inner join dbo.program on programApplicant_program_programId = programId
 where interviewResult = 'Selected'
-		and programApplicant_registeredMembers_memberId = $memberId
+		and programApplicant_registeredMembers_memberId = @MemberID
 
+END
+
+GO
+
+--- View Programs of Member 3 ---
+
+exec ViewMemberPrograms 3
 
 -- CREATE ORGANIZATION
 
@@ -303,6 +350,12 @@ from program pr inner join programApplicant pa on pr.programId = pa.program_prog
 where pr.programId = 1) ab on aa.memberId = ab.programApplicant_registeredMembers_memberId
 */
 
+CREATE PROCEDURE ListProgramApplicants
+@ProgramID int
+AS
+
+BEGIN
+
 select ab.memberFullName, ab.memberEmail,
 case
 	when iv.interviewId is null then 'Call'
@@ -313,9 +366,17 @@ from
 select pa.*, rm.memberFullName, rm.memberEmail
 from programApplicant pa inner join registeredMembers rm 
 		on pa.registeredMembers_memberId = rm.memberId
-where pa.program_programId = 1
+where pa.program_programId = @ProgramID
 ) ab
 inner join interview iv on ab.appId = iv.programApplicant_appId
+
+END
+
+GO
+
+--- List Applicants of Program 1 ---
+
+EXEC ListProgramApplicants 1
 
 -- ONCE YOU CLICK ON CALL IT WILL REDIRECT ON A PAGE THAT CREATES INTERVIEW FOR THAT
 -- PARTICULAR PROGRAM AND MEMBER
@@ -325,19 +386,12 @@ insert into interview(programApplicant_program_programId,
 	interviewLocation, interviewDateTime, interviewResult)
 values ($programApplicant_program_programId, 
 	$programApplicant_registeredMembers_memberId, $programApplicant_appId, $employee_employeeId,
-	$interviewLocation, $interviewDateTime, 'Called for Interview')
+	$interviewLocation, $interviewDateTime, 'Pending')
 
 -- employee id will be selected here
 select em.employeeId, em.employeeFullName
 from employee em
 where em.employeeType = 2
-
--- ADD PROGRAM REPORT
-
-insert into programReport(program_programId, accomodationRating, travelRating, experienceRating,
-		workRating)
-values ($program_programId, $accomodationRating, $travelRating, $experienceRating,
-		$workRating)
 
 
 -- VIEW SPONSOR
@@ -356,3 +410,109 @@ from interview iv inner join registeredMembers rm
 		inner join organization org on pr.programId = org.orgId
 		inner join employee em on iv.employee_employeeId = em.employeeId
 where iv.interviewResult = 'Pending'
+
+
+
+-- TRANSACTIONS
+
+-- ENDS PROGRAM
+
+
+CREATE PROCEDURE EndProgram
+@ProgramID int
+AS
+
+BEGIN
+
+BEGIN TRANSACTION
+
+UPDATE program
+SET programEndDate = GETDATE()
+WHERE programId = @ProgramID
+
+COMMIT
+
+END
+
+GO
+
+-- GENERATES REPORT
+
+CREATE PROCEDURE GenerateReport
+(
+	@ProgramID int,
+	@accRating int,
+	@travelRating int,
+	@expRating int,
+	@workRating int
+)
+AS
+
+BEGIN
+
+BEGIN TRANSACTION
+
+INSERT INTO programReport
+VALUES (@ProgramID, @accRating, @travelRating, @expRating, @workRating)
+
+COMMIT
+
+END
+
+GO
+
+-- ADDS CREDIT IN MEMBER ACCOUNTS
+
+CREATE PROCEDURE AddCredit
+(
+	@ProgramId int
+)
+AS
+
+BEGIN
+
+declare @AddCredit int
+	select
+	@AddCredit = payPerDay * Duration 
+	from
+	(select payPerDay
+	from programFinance
+	where program_programId = @ProgramID) aa ,
+	(select DATEDIFF(day, programStartDate, programEndDate) as [Duration]
+	from program
+	where programId = @ProgramID) ab
+
+BEGIN TRANSACTION
+
+UPDATE memberAccount
+SET currentBalance = currentBalance + @AddCredit
+where registeredMembers_memberId in (select iv.programApplicant_registeredMembers_memberId
+from program pr inner join interview iv on pr.programId = iv.programApplicant_program_programId
+				where pr.programId = @ProgramID
+				and iv.interviewResult = 'Selected'
+				)
+
+UPDATE memberAccount
+SET totalBalance = totalBalance + @AddCredit
+where registeredMembers_memberId in (select programApplicant_registeredMembers_memberId
+from program pr inner join interview iv on pr.programId = iv.programApplicant_program_programId
+				where pr.programId = @ProgramID
+				and iv.interviewResult = 'Selected'
+				)
+
+COMMIT
+
+END
+
+GO
+
+--- THIS IS HOW TRANSACTIONS WILL WORK ---
+
+EXEC EndProgram 1
+EXEC GenerateReport 1, 4, 4, 4, 3
+EXEC AddCredit 1
+
+select * from program
+select * from programReport
+select * from memberAccount
+

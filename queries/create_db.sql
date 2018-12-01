@@ -1,8 +1,8 @@
 CREATE TABLE organization (
   orgId INTEGER  NOT NULL   IDENTITY ,
   orgName VARCHAR(45)  NOT NULL  ,
-  orgAddress VARCHAR(45)  NOT NULL  ,
-  orgEmail VARCHAR(45)  NOT NULL  ,
+  orgAddress VARCHAR(100)  NOT NULL  ,
+  orgEmail VARCHAR(100)  NOT NULL  ,
   orgPhone VARCHAR(20)  NOT NULL    ,
 PRIMARY KEY(orgId));
 GO
@@ -13,7 +13,7 @@ GO
 CREATE TABLE countryOffice (
   countryCode VARCHAR(20)  NOT NULL  ,
   countryName VARCHAR(45)  NOT NULL  ,
-  countryOfficeEmail VARCHAR(45)    ,
+  countryOfficeEmail VARCHAR(100)    ,
   countryOfficePhone VARCHAR(20)      ,
 PRIMARY KEY(countryCode));
 GO
@@ -25,9 +25,9 @@ CREATE TABLE cityChapter (
   chapterId INTEGER  NOT NULL   IDENTITY ,
   countryOffice_countryCode VARCHAR(20)  NOT NULL  ,
   chapterCity VARCHAR(45)  NOT NULL  ,
-  chapterEmail VARCHAR(45)    ,
+  chapterEmail VARCHAR(100)    ,
   chapterPhone VARCHAR(20)    ,
-  chapterAddress VARCHAR(45)  NOT NULL    ,
+  chapterAddress VARCHAR(100)  NOT NULL    ,
 PRIMARY KEY(chapterId)  ,
   FOREIGN KEY(countryOffice_countryCode)
     REFERENCES countryOffice(countryCode));
@@ -49,7 +49,7 @@ CREATE TABLE employee (
   employeeJoiningDate DATE  NOT NULL  ,
   employeeDOB DATE  NOT NULL  ,
   employeePhone VARCHAR(20)    ,
-  employeeEmail VARCHAR(45)    ,
+  employeeEmail VARCHAR(100)    ,
   employeeSalary INTEGER  NOT NULL  ,
   employeeType INTEGER  NOT NULL    ,
 PRIMARY KEY(employeeId)  ,
@@ -69,8 +69,8 @@ GO
 CREATE TABLE sponsor (
   sponsorId INTEGER  NOT NULL   IDENTITY ,
   countryOffice_countryCode VARCHAR(20)  NOT NULL  ,
-  sponsorName VARCHAR(20)  NOT NULL  ,
-  sponsorEmail VARCHAR(45)    ,
+  sponsorName VARCHAR(45)  NOT NULL  ,
+  sponsorEmail VARCHAR(100)    ,
   sponsorPhone VARCHAR(20)      ,
 PRIMARY KEY(sponsorId)  ,
   FOREIGN KEY(countryOffice_countryCode)
@@ -93,7 +93,7 @@ CREATE TABLE program (
   programName VARCHAR(45)  NOT NULL  ,
   programCountry VARCHAR(45)  NOT NULL  ,
   programCity VARCHAR(45)  NOT NULL  ,
-  programLocation VARCHAR(45)  NOT NULL  ,
+  programLocation VARCHAR(100)  NOT NULL  ,
   programStartDate DATE  NOT NULL  ,
   programEndDate DATE    ,
   programDescription VARCHAR(255)  NOT NULL  ,
@@ -124,13 +124,14 @@ CREATE TABLE registeredMembers (
   memberId INTEGER  NOT NULL   IDENTITY ,
   cityChapter_chapterId INTEGER  NOT NULL  ,
   memberFullName VARCHAR(45)  NOT NULL  ,
-  memberEmail VARCHAR(45)    ,
-  memberAddress VARCHAR(45)    ,
+  memberEmail VARCHAR(100)    ,
+  memberAddress VARCHAR(100)    ,
+  memberPassword VARCHAR(20)  NOT NULL  ,
   memberPhone VARCHAR(20)    ,
   memberJoinDate DATE  NOT NULL  ,
   memberLeaveDate DATE    ,
   memberDOB DATE  NOT NULL  ,
-  memberUniversity VARCHAR(45)      ,
+  memberUniversity VARCHAR(100)      ,
 PRIMARY KEY(memberId)  ,
   FOREIGN KEY(cityChapter_chapterId)
     REFERENCES cityChapter(chapterId));
@@ -167,8 +168,8 @@ GO
 
 CREATE TABLE programFinance (
   program_programId INTEGER  NOT NULL  ,
-  payPerHour INTEGER  NOT NULL  ,
-  typeOfWork VARCHAR(255)  NOT NULL    ,
+  payPerDay FLOAT  NOT NULL  ,
+  typeOfWork VARCHAR(200)  NOT NULL    ,
 PRIMARY KEY(program_programId)  ,
   FOREIGN KEY(program_programId)
     REFERENCES program(programId));
@@ -185,10 +186,8 @@ GO
 
 CREATE TABLE memberAccount (
   registeredMembers_memberId INTEGER  NOT NULL  ,
-  passcode VARCHAR(20)  NOT NULL  ,
-  hoursCompleted INTEGER    ,
-  currentBalance INTEGER    ,
-  totalBalance INTEGER      ,
+  currentBalance FLOAT    ,
+  totalBalance FLOAT      ,
 PRIMARY KEY(registeredMembers_memberId)  ,
   FOREIGN KEY(registeredMembers_memberId)
     REFERENCES registeredMembers(memberId));
@@ -233,7 +232,7 @@ CREATE TABLE interview (
   programApplicant_registeredMembers_memberId INTEGER  NOT NULL  ,
   programApplicant_appId INTEGER  NOT NULL  ,
   employee_employeeId INTEGER  NOT NULL  ,
-  interviewLocation VARCHAR(45)  NOT NULL  ,
+  interviewLocation VARCHAR(100)  NOT NULL  ,
   interviewDate DATE  NOT NULL  ,
   interviewTime TIME  NOT NULL  ,
   interviewResult VARCHAR(20)      ,
