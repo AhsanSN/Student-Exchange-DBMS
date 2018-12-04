@@ -1,3 +1,4 @@
+
 --- TRIGGER: CREATE MEMBER ACCOUNT ---
 
 create trigger CreateMemberAccount
@@ -73,7 +74,7 @@ from
 select *
 from dbo.program inner join dbo.organization on organization_orgId = orgId
 ) p
-inner join
+left outer join
 (
 select program_programId, COUNT(*) as [No. of Applicants]
 from dbo.programApplicant
@@ -386,28 +387,7 @@ where iv.interviewResult = 'Pending'
 
 -- ENDS PROGRAM
 
-
 CREATE PROCEDURE EndProgram
-@ProgramID int
-AS
-
-BEGIN
-
-BEGIN TRANSACTION
-
-UPDATE program
-SET programEndDate = GETDATE()
-WHERE programId = @ProgramID
-
-COMMIT
-
-END
-
-GO
-
--- GENERATES REPORT
-
-CREATE PROCEDURE GenerateReport
 (
 	@ProgramID int,
 	@accRating int,
@@ -421,24 +401,18 @@ BEGIN
 
 BEGIN TRANSACTION
 
+-- ends program
+
+UPDATE program
+SET programEndDate = GETDATE()
+WHERE programId = @ProgramID
+
+-- generates report
+
 INSERT INTO programReport
 VALUES (@ProgramID, @accRating, @travelRating, @expRating, @workRating)
 
-COMMIT
-
-END
-
-GO
-
--- ADDS CREDIT IN MEMBER ACCOUNTS
-
-CREATE PROCEDURE AddCredit
-(
-	@ProgramId int
-)
-AS
-
-BEGIN
+-- add credit to members' accounts
 
 declare @AddCredit int
 	select
@@ -450,8 +424,6 @@ declare @AddCredit int
 	(select DATEDIFF(day, programStartDate, programEndDate) as [Duration]
 	from program
 	where programId = @ProgramID) ab
-
-BEGIN TRANSACTION
 
 UPDATE memberAccount
 SET currentBalance = currentBalance + @AddCredit
@@ -475,13 +447,31 @@ END
 
 GO
 
---- THIS IS HOW TRANSACTIONS WILL WORK ---
+-- insert for paid programs
 
-EXEC EndProgram 1
-EXEC GenerateReport 1, 4, 4, 4, 3
-EXEC AddCredit 1
+insert into programFinance
+values ($programId, $payPerDay, $typeOfWork)
 
-select * from program
-select * from programReport
-select * from memberAccount
+-- when member applies, run this
+
+insert into programApplicant
+values ($memberId, $programId)
+
+-- interview select/reject
+
+CREATE PROCEDURE TakeInterview
+
+(
+	@interviewId int,
+	@interviewResult varchar(20)
+)
+AS
+
+BEGIN
+
+UPDATE interview
+set interviewResult = @interviewResult
+where interviewId = @interviewId
+
+END
 
