@@ -339,3 +339,26 @@ insert into programApplicant (registeredMembers_memberId, program_programId) val
 insert into programApplicant (registeredMembers_memberId, program_programId) values (12, 5);
 insert into programApplicant (registeredMembers_memberId, program_programId) values (55, 18);
 insert into programApplicant (registeredMembers_memberId, program_programId) values (23, 19);
+
+-- INSERT MILLION ROWS
+
+CREATE PROCEDURE GenerateApplicants
+AS
+
+BEGIN
+
+Declare @Loop int
+
+Set @Loop = 1
+
+While @Loop <= 1000000
+BEGIN
+	insert into programApplicant (registeredMembers_memberId, program_programId) values (CAST(RAND()*1000000 as int)%1136, CAST(RAND()*1000000 as int)%1036);
+	Set @Loop = @Loop + 1
+END
+
+END
+
+EXEC GenerateApplicants
+
+select * from programApplicant
