@@ -1,83 +1,65 @@
 # Student-Exchange-DBMS
-A data management system for an oil company. 
+For our project, we will be building a system for a global student exchange program, such as AISEC. Our system will include an initial ER Diagram, which will be followed by a complete Database, which we will then manipulate using a front-end interface, a website. This website will mainly be for administrative use, but a portion of the website will be available to the general public to view programs and apply for them.
+The Global Student Exchange Program has branches worldwide. These branches in different countries, are in different cities from where students are selected for the exchange program. Students before they get selected apply for exchange programs, apply for a program in their particular city chapter. Some students are selected by that city chapter and sent to other country to a city to work with the organization whose program it is. Students pay some fixed portion of the fee. These programs are funded by sponsors. The programs are created by worldwide NGO’s, startups, and companies. Students after returning from a program give their statements that are recorded.
 
-### Potential Transactions
+## Live preview
 
-1. Adding payment from a paid program to a student's total earning.
+http://greybulb.anomoz.com/db/production/
 
-2. Ending the program and entering the final report
-
-### Progress
-
-1. View Programs working
-
-2. create programs working
-
-3. create country office working
-
-4. create chapter working
-
-5. view chapters working
-
-6. Register Student working 
-
-7. Employee gender added
-
-8. Insert employee working
-
-9. view registered members working (should show numbers in 'programs selected for')
-
-10. view a members program working
-
-11. create organization working
-
-12. Add rating working
-
-13. Call for interview done (not tested)
-
-14. view interviewers working. (needs proper query)
-
-15. View Organizations working
-
-16. Apply for program working
+## Screenshots
 
 
+<table>
+  <tbody>
+    <tr>
+      <!-- Video 1 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1048).png">
+          <br>
+      </td>
+      <!-- Video 2 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1049).png">
+          <br>
+      </td>
+      <!-- Video 3 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1050).png">
+          <br>
+      </td>
+    </tr>
+    <tr>
+      <!-- Video 4 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1051).png">
+          <br>
+      </td>
+      <!-- Video 5 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1052).png">
+          <br>
+      </td>
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1053).png">
+          <br>
+      </td>
+      <!-- Video 6 -->
+      <tr>
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1054).png">
+          <br>
+      </td>
+        <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1055).png">
+          <br>
+      </td>
+        <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1056).png">
+          <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 
-
-### Progress (Qadeer and Ahmed)
-
-Program: Mark as Ended, takes us to Program Report [DONE] [done]
-
-Program No. of Applicants page should show Call, Selected, and Pending. [DONE] [done]
-
-UPDATE: Create/View Program has Program Head [DONE -- IF PROGRAM HEAD IS NOT ASSIGNED, IT SAYS 'ASSIGN PROGRAM HEAD'] [done but no option to assign]
-
-Employee type: 1 for Program Head, 2 for Interviewer [DONE] [noted]
-
-Interview DateTime are seperate [DONE] [done] 
-
-Remove MemberStatus from RegisteredMembers [DONE] [done]
-
-Member logs in, looks at Programs, Programs shows cases such as Apply, Selected, Called, Rejected [DONE] [working but creates 2 rows]
-
-registeredMembers program selected for should show an integer (count) [DONE] [ok]
-
-view Sponsors [DONE] [done-not tested]
-
-view interviews shows pending interviews [DONE] [done- not tested]
-
-remove duration from program [DONE] [done]
-
-make member account, add password attribute, add withdraw option [DONE] 
-  [password option added] attrbute name: memberPassword in 'registeredMember'
-
-remove program remarks [DONE] [done]
-
-
-### whats left
-
-1. view program report
-
-2. view member's program work but creates 2 rows
