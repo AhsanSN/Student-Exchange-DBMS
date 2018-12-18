@@ -4,7 +4,9 @@ The Global Student Exchange Program has branches worldwide. These branches in di
 
 ## Live preview
 
-http://greybulb.anomoz.com/db/production/
+[Admin View] http://greybulb.anomoz.com/db/production/
+
+[User View] http://greybulb.anomoz.com/db/production/login.php
 
 ## Screenshots
 
