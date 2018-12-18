@@ -1,22 +1,25 @@
 <?php
 
-if(isset($_POST['firstName'])){
+include_once("database.php");
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
-  $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
-  $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
+$viewchapters="
+select cc.countryName, cc.chapterCity, cc.chapterAddress, cc.chapterEmail, cc.chapterPhone, rm.`No. of Registered Members`
+from
+(
+select *
+from  cityChapter inner join  countryOffice on countryOffice_countryCode = countryCode
+) cc
+left outer join
+(
+select chapterId, COUNT(*) as `No. of Registered Members`
+from  cityChapter left outer join  registeredMembers on chapterId = cityChapter_chapterId
+    where memberId is not null
+group by chapterId
+) rm 
+on cc.chapterId = rm.chapterId
+";
+$result_viewchapters = $con->query($viewchapters);
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
-}
 
 ?>
 <!DOCTYPE html>
@@ -52,43 +55,28 @@ if(isset($_POST['firstName'])){
                           <th>Address</th>
                           <th>Email</th>
                           <th>Phone</th>
+                          <th>Registered Members</th>
                           
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>61</td>
-                          
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                          <td>61</td>
-                    
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                          <td>61</td>
-                     
-                        </tr>
-                        <tr>
-                          <td>Cedric Kelly</td>
-                          <td>Senior Javascript Developer</td>
-                          <td>Edinburgh</td>
-                          <td>22</td>
-                          <td>61</td>
-                         
-                        </tr>
-                        
+                          <?php
+                              if ($result_viewchapters->num_rows > 0) {
+                                while($row= $result_viewchapters->fetch_assoc())
+                                {
+                                    
+		
+                                    echo "<tr>";
+                                    echo "<td>".$row['countryName']."</td>";
+                                    echo "<td>".$row['chapterCity']."</td>";
+                                    echo "<td>".$row['chapterAddress']."</td>";
+                                    echo "<td>".$row['chapterEmail']."</td>";
+                                    echo "<td>".$row['chapterPhone']."</td>";
+                                    echo "<td>".$row['No. of Registered Members']."</td>";
+                                    echo "</tr>";
+                                }
+                              }
+                          ?>
                       </tbody>
                     </table>
                   </div>

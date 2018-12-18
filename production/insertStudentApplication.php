@@ -1,20 +1,21 @@
 <?php
 include_once("database.php");
 
-$viewCountry="select * from countryOffice";
-$result_viewCountry = $con->query($viewCountry);
+$viewMembers="select memberId, memberFullName, memberEmail from registeredMembers";
+$result_viewMembers = $con->query($viewMembers);
 
-if(isset($_POST['countryOffice'])){
+$viewProgram="select programId, programName from program";
+$result_viewProgram = $con->query($viewProgram);
 
-  $countryOffice = $_POST['countryOffice'];
-  $city = $_POST['city'];
-  $email = $_POST['email'];
-  $phoneNumber = $_POST['phoneNumber'];
-  $address = $_POST['address'];
+if(isset($_POST['student'])){
+
+  $student = $_POST['student'];
+  $program = $_POST['program'];
+
 
   //echo "$countryOffice. $city.$email.$phoneNumber.$address";
   
-  $sqli="INSERT INTO cityChapter (countryOffice_countryCode, chapterCity, chapterEmail, chapterPhone, chapterAddress) VALUES ('$countryOffice', '$city', '$email', '$phoneNumber', '$address')";
+  $sqli="INSERT INTO programApplicant (registeredMembers_memberId, program_programId) VALUES ('$student', '$program')";
         if(!mysqli_query($con,$sqli))
         {
         echo"Error adding entry.";
@@ -42,7 +43,7 @@ if(isset($_POST['countryOffice'])){
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Create City Chapter</h2>
+                    <h2>Apply for program</h2>
                    
                     <div class="clearfix"></div>
                   </div>
@@ -52,17 +53,17 @@ if(isset($_POST['countryOffice'])){
 
                     
                       <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country Office<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Student<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" id="organization" name="countryOffice" class="select2_single form-control" tabindex="-1">
+                          <select required="required" id="student" name="student" class="select2_single form-control" tabindex="-1">
                               <?php
-                              if ($result_viewCountry->num_rows > 0) {
-                                while($row= $result_viewCountry->fetch_assoc())
+                              if ($result_viewMembers->num_rows > 0) {
+                                while($row= $result_viewMembers->fetch_assoc())
                                 {
-                                    echo"<option value='". $row['countryCode']."'>".$row['countryName']."</option>";
+                                    echo"<option value='". $row['memberId']."'>".$row['memberFullName']." (".$row['memberEmail'].")</option>";
                                 }
                               }
                               ?>
@@ -72,45 +73,21 @@ if(isset($_POST['countryOffice'])){
                     </div>
                    
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Programme<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="text" name="city" class="form-control" >
-                      </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <input required="required" type="Email" name="email" class="form-control">
-                      </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Address<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <input required="required" type="text" name="address" class="form-control">
-                      </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <input required="required" name="phoneNumber" type="text" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                          <select required="required" id="program" name="program" class="select2_single form-control" tabindex="-1">
+                              <?php
+                              if ($result_viewProgram->num_rows > 0) {
+                                while($row= $result_viewProgram->fetch_assoc())
+                                {
+                                    echo"<option value='". $row['programId']."'>".$row['programName']."</option>";
+                                }
+                              }
+                              ?>
+                          </select>
                       </div>
                       </div>
                     </div>
@@ -120,7 +97,7 @@ if(isset($_POST['countryOffice'])){
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button class="btn btn-primary" type="button">Cancel</button>
-                          <button type="submit" class="btn btn-success">Add</button>
+                          <button type="submit" class="btn btn-success">Apply</button>
                         </div>
                       </div>
                     </form>

@@ -1,22 +1,44 @@
 <?php
 
-if(isset($_POST['firstName'])){
+include_once("database.php");
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
-  $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
-  $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
-
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+if(isset($_GET['action'])&&(isset($_GET['interviewId']))){
+    $action = $_GET['action'];
+    $interviewId = $_GET['interviewId'];
+    
+    if($action==1){
+        $viewProga="UPDATE interview
+        SET interviewResult = 'Selected'
+        WHERE interviewId = '$interviewId'";
+    $result_viewProg = $con->query($viewProga);
+    }
+    if($action==0){
+        $viewProga="UPDATE interview
+        SET interviewResult = 'Rejected'
+        WHERE interviewId = '$interviewId'";
+    $result_viewProg = $con->query($viewProga);
+    }
+    
+    //
 }
+
+$viewProg="select rm.memberFullName, pr.programName, pr.programId, rm.memberId, org.orgName, iv.interviewDate, iv.interviewTime, iv.interviewId,
+		em.employeeFullName, iv.interviewLocation
+from interview iv inner join registeredMembers rm 
+			on iv.programApplicant_registeredMembers_memberId = rm.memberId
+		inner join program pr on iv.programApplicant_program_programId = pr.programId
+		inner join organization org on pr.programId = org.orgId
+		inner join employee em on iv.employee_employeeId = em.employeeId
+where iv.interviewResult = 'Pending'";
+$result_viewProg = $con->query($viewProg);
+
+
+
+/**
+UPDATE interview
+        SET interviewResult = 'Rejected'
+        WHERE programId = '$program_programId'**/
+
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +62,7 @@ if(isset($_POST['firstName'])){
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>View Applicants for Program [Habibi]</h2>
+                    <h2>View Interviews</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -48,41 +70,36 @@ if(isset($_POST['firstName'])){
                       <thead>
                         <tr>
                           <th>Student Name</th>
-                          <th>Programs Selected for</th>
-                          <th>Email</th>
-                          <th>Call for Interview</th>
-                          
+                          <th>Program Name</th>
+                          <th>Organization</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Location</th>
+                          <th>Interviewer</th>
+                          <th>Take Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td><a href="insertInterview.php?id=12">[call]</a></td>
-                          
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                    
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                     
-                        </tr>
-                        <tr>
-                          <td>Cedric Kelly</td>
-                          <td>Senior Javascript Developer</td>
-                          <td>Edinburgh</td>
-                          <td>22</td>
-                         
-                        </tr>
+                        <?php
+                            
+                            if ($result_viewProg->num_rows > 0) {
+                                while($row= $result_viewProg->fetch_assoc())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>".$row['memberFullName']."</td>";
+                                    echo "<td>".$row['programName']."</td>"; 
+                                    echo "<td>".$row['orgName']."</td>"; 
+                                    echo "<td>".$row['interviewDate']."</td>"; 
+                                    echo "<td>".$row['interviewTime']."</td>"; 
+                                    echo "<td>".$row['interviewLocation']."</td>"; 
+                                    echo "<td>".$row['employeeFullName']."</td>"; 
+                                    echo "<td><a href='?interviewId=".$row['interviewId']."&action=1&appId=21'>Accept</a>/<a href='?interviewId=".$row['interviewId']."&action=0&appId=21'>Reject</a>
+                                    </td>"; 
+                                    echo "</tr>";
+                                }
+                            }
+
+                          ?>
                         
                       </tbody>
                     </table>

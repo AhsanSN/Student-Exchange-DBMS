@@ -1,24 +1,45 @@
 <?php
 
-if(isset($_POST['firstName'])){
+include_once("database.php");
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
-  $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $department = $_POST['department'];
-  $position = $_POST['position'];
-  $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
+if(isset($_GET['programId'])&&isset($_GET['studentId'])&&isset($_GET['appId'])){
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+  $programId = $_GET['programId'];
+  $studentId = $_GET['studentId'];
+  $appId = $_GET['appId'];
+
+    $viewEmployee="select em.employeeId, em.employeeFullName
+                from employee em
+                where em.employeeType = 2";
+    $result_viewEmployee = $con->query($viewEmployee);
+    
+    if(isset($_POST['employeeId'])){
+        
+    $employeeId = $_POST['employeeId'];
+    $interviewLocation = $_POST['location'];
+    $interviewDate = $_POST['date'];
+    $interviewTime = $_POST['time'];
+
+    echo "$employeeId.$interviewDateTime.$interviewDateTime.$interviewLocation";
+    $sql="insert into interview(programApplicant_program_programId, 
+    	programApplicant_registeredMembers_memberId, programApplicant_appId, employee_employeeId,
+    	interviewLocation, interviewDate, interviewTime,interviewResult)
+    values ('$programId', 
+    	'$studentId', '$appId', '$employeeId','$interviewLocation', '$interviewDate', '$interviewTime', 'Pending')
+	";
+    if(!mysqli_query($con,$sql))
+        {
+        echo"error";
+        }
 }
 
+}
+else{
+    echo "There seems to be some kind of error!";
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <?php include_once("./phpParts/head.php")?>
@@ -39,7 +60,7 @@ if(isset($_POST['firstName'])){
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Call [Ahsan] for [Habibi] Interview </h2>
+                    <h2>Call for Interview </h2>
                     
                     <div class="clearfix"></div>
                   </div>
@@ -62,10 +83,31 @@ if(isset($_POST['firstName'])){
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Time of Interview<span class="required"></span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="time" name="salary" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                        
+                        
+                   <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <div class='input-group date' id='myDatepicker3'>
+                            <input type='text' name="time" class="form-control" />
+                            <span class="input-group-addon">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
+                    </div>
+                        </div>
+                
                       </div>
+                      
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Location<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input required="required" type="text" name="location" class="form-control">
+                      </div>
+                      </div>
+                    </div>
 
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Interviewer<span class="required"></span>
@@ -73,14 +115,17 @@ if(isset($_POST['firstName'])){
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" name="interviewer" class="select2_single form-control" tabindex="-1">
-                            <option value="Accounting">Accounting</option>
-                            <option value="Consulting">Consulting</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Human Resources">Human Resources</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Security">Security</option>
-                            <option value="IT">IT</option>
+                          <select required="required" name="employeeId" class="select2_single form-control" tabindex="-1">
+                              
+                              <?php
+                              if ($result_viewEmployee->num_rows > 0) {
+                                while($row= $result_viewEmployee->fetch_assoc())
+                                {
+                                    echo " <option value='".$row['employeeId']."'>".$row['employeeFullName']."</option>";
+                                }
+                              }
+                              ?>
+                         
                           </select>
                       </div>
                       </div>

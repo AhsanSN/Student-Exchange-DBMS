@@ -1,30 +1,12 @@
 <?php
+
 include_once("database.php");
 
-
-if(isset($_GET['id'])){
-
-  $memberId = $_GET['id'];
-
-    $viewstudent="select memberFullname from registeredMembers where memberId = '$memberId'";
-    $result_viewstudent = $con->query($viewstudent);
-    
-    $viewProg="
-    select programName, programCountry, programCity, programLocation, datediff( programEndDate,
-    		programStartDate) as `Duration`, programStartDate, programEndDate, programDescription
-    from interview inner join program on programApplicant_program_programId = programId
-    where interviewResult = 'Selected'
-    and programApplicant_registeredMembers_memberId = '$memberId'
-    
-    ";
-    $result_viewProg = $con->query($viewProg);
+$viewProg="select e.employeeFullName,datediff(year,employeeDOB,getdate()),employeePhone,employeeEmail,	employeeSalary from employee e where employeeType = 2";
+$result_viewProg = $con->query($viewProg);
 
 
-}
-else{
-    echo "There seems to be some kind of error!";
-    exit();
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -48,55 +30,37 @@ else{
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>
-                        <?php
-                        if ($result_viewstudent->num_rows > 0) {
-                                while($row= $result_viewstudent->fetch_assoc())
-                                {
-                                    echo $row['memberFullname'];
-                                }}
-                        else{
-                            echo "No such member found!";
-                            exit();
-                        }
-                        ?>
-                        's Programs</h2>
+                    <h2>View Interviewers</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Program Name</th>
-                          <th>Country</th>
-                          <th>City</th>
-                          <th>Location</th>
-                          <th>Duration</th>
-                          <th>Start Date</th>
-                          <th>End Date</th>
-                          <th>Description</th>
+                          <th>Name</th>
+                          <th>Age</th>
+                          <th>Phone number</th>
+                          <th>Email</th>
+                          <th>Salary</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
-                          <?php
-                            if ($result_viewProg->num_rows > 0) {
+                          <?
+                          if ($result_viewProg->num_rows > 0) {
                                 while($row= $result_viewProg->fetch_assoc())
                                 {
-                                   
                                     echo "<tr>";
-                                    echo "<td>".$row['programName']."</td>";
-                                    echo "<td>".$row['programCountry']."</td>"; 
-                                    echo "<td>".$row['programCity']."</td>"; 
-                                    echo "<td>".$row['programLocation']."</td>"; 
-                                    echo "<td>".$row['Duration']."</td>"; 
-                                    echo "<td>".$row['programStartDate']."</td>"; 
-                                    echo "<td>".$row['programEndDate']."</td>"; 
-                                    echo "<td>".$row['programDescription']."</td>"; 
+                                echo "<td>".$row['employeeFullName']."</td>";
+                              echo "<td>".$row['employeeDOB']."</td>";
+                               echo "<td>".$row['employeePhone']."</td>";
+                                echo "<td>".$row['employeeEmail']."</td>";
+                                 echo "<td>".$row['employeeSalary']."</td>";
                                     echo "</tr>";
                                 }
                             }
-                          ?>
-                        
+                            
+                            ?>
                       </tbody>
                     </table>
                   </div>

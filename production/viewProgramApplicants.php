@@ -1,30 +1,26 @@
 <?php
+
 include_once("database.php");
 
-
-if(isset($_GET['id'])){
-
-  $memberId = $_GET['id'];
-
-    $viewstudent="select memberFullname from registeredMembers where memberId = '$memberId'";
-    $result_viewstudent = $con->query($viewstudent);
-    
-    $viewProg="
-    select programName, programCountry, programCity, programLocation, datediff( programEndDate,
-    		programStartDate) as `Duration`, programStartDate, programEndDate, programDescription
-    from interview inner join program on programApplicant_program_programId = programId
-    where interviewResult = 'Selected'
-    and programApplicant_registeredMembers_memberId = '$memberId'
-    
-    ";
-    $result_viewProg = $con->query($viewProg);
-
-
+if(isset($_GET['programId'])){
+    $pId = $_GET['programId'];
 }
-else{
-    echo "There seems to be some kind of error!";
-    exit();
-}
+
+$viewProg="select ab.memberFullName, ab.memberEmail,ab.program_programId, ab.registeredMembers_memberId, ab.appId,
+case
+	when iv.interviewId is null then 'Call'
+	else iv.interviewResult
+end as `Call for Interview`
+from
+(
+select pa.*, rm.memberFullName, rm.memberEmail
+from programApplicant pa inner join registeredMembers rm 
+		on pa.registeredMembers_memberId = rm.memberId
+where pa.program_programId = '$pId'
+) ab
+left outer join interview iv on ab.appId = iv.programApplicant_appId";
+$result_viewProg = $con->query($viewProg);
+
 
 ?>
 <!DOCTYPE html>
@@ -48,55 +44,49 @@ else{
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>
-                        <?php
-                        if ($result_viewstudent->num_rows > 0) {
-                                while($row= $result_viewstudent->fetch_assoc())
-                                {
-                                    echo $row['memberFullname'];
-                                }}
-                        else{
-                            echo "No such member found!";
-                            exit();
-                        }
-                        ?>
-                        's Programs</h2>
+                    <h2>View Program Applicants</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
+             
                         <tr>
-                          <th>Program Name</th>
-                          <th>Country</th>
-                          <th>City</th>
-                          <th>Location</th>
-                          <th>Duration</th>
-                          <th>Start Date</th>
-                          <th>End Date</th>
-                          <th>Description</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
                           <?php
+                            
                             if ($result_viewProg->num_rows > 0) {
                                 while($row= $result_viewProg->fetch_assoc())
                                 {
-                                   
                                     echo "<tr>";
-                                    echo "<td>".$row['programName']."</td>";
-                                    echo "<td>".$row['programCountry']."</td>"; 
-                                    echo "<td>".$row['programCity']."</td>"; 
-                                    echo "<td>".$row['programLocation']."</td>"; 
-                                    echo "<td>".$row['Duration']."</td>"; 
-                                    echo "<td>".$row['programStartDate']."</td>"; 
-                                    echo "<td>".$row['programEndDate']."</td>"; 
-                                    echo "<td>".$row['programDescription']."</td>"; 
+                                    echo "<td>".$row['memberFullName']."</td>";
+                                    echo "<td>".$row['memberEmail']."</td>"; 
+                                    
+                                    if ($row['Call for Interview']=='Call'){
+                                        echo "<td><a href='insertInterview.php?programId=".$row['program_programId']."&studentId=".$row['registeredMembers_memberId']."&appId=".$row['appId']."'>".$row['Call for Interview']."</a></td>"; 
+                                    }
+                                    else{
+                                        echo "<td>".$row['Call for Interview']."</td>";
+                                    }
+                                    
                                     echo "</tr>";
                                 }
                             }
+
                           ?>
-                        
+                          <!--
+                          <tr>
+                              <td>for trial</td>
+                              <td>Ah@sad.com</td>
+                              <td><a href='insertInterview.php?programId=12&studentId=2&appId=12'>Call</a></td>
+                          </tr>
+                          -->
+    
                       </tbody>
                     </table>
                   </div>

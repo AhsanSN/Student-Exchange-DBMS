@@ -1,22 +1,9 @@
 <?php
 
-if(isset($_POST['firstName'])){
+include_once("database.php");
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
-  $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
-  $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
-
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
-}
+$viewProg="select * from organization";
+$result_viewProg = $con->query($viewProg);
 
 ?>
 <!DOCTYPE html>
@@ -55,34 +42,22 @@ if(isset($_POST['firstName'])){
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                    
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                     
-                        </tr>
-                        <tr>
-                          <td>Cedric Kelly</td>
-                          <td>Senior Javascript Developer</td>
-                          <td>Edinburgh</td>
-                          <td>22</td>
-                         
-                        </tr>
+                        <?php
+                            
+                            if ($result_viewProg->num_rows > 0) {
+                                while($row= $result_viewProg->fetch_assoc())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>".$row['orgName']."</td>"; 
+                                    echo "<td>".$row['orgAddress']."</td>"; 
+                                    echo "<td>".$row['orgEmail']."</td>"; 
+                                    echo "<td>".$row['orgPhone']."</td>";
+           
+                                    echo "</tr>";
+                                }
+                            }
+
+                          ?>
                         
                       </tbody>
                     </table>
