@@ -14,19 +14,53 @@ if(isset($_POST['name'])){
   $description = $_POST['description'];
   $requirement = $_POST['requirement'];
   
+  $pay = $_POST['pay'];
+  
   $employee = $_POST['empHead'];
   $type = $_POST['programType'];
   $capacity = $_POST['capacity'];
   $organizationId = $_POST['organization'];
 
   //echo "$name.$country.$city.$country.$location.$startDate.$description.$requirement";
-  
-  $sql=" INSERT INTO  program (employee_employeeId, organization_orgId, programName, programCountry, programCity, programLocation, programStartDate, programEndDate, programDescription, programRequirements, programType, programCapacity)
+  if ($type ==1){
+      // echo"worked 1";
+      $sql=" INSERT INTO  program (employee_employeeId, organization_orgId, programName, programCountry, programCity, programLocation, programStartDate, programEndDate, programDescription, programRequirements, programType, programCapacity)
 VALUES ('$employee', '$organizationId', '$name', '$country', '$city', '$location', '$startDate' , NULL, '$description', '$requirement', '$type', '$capacity') ";
         if(!mysqli_query($con,$sql))
         {
-        echo"error";
+        echo"error 1";
         }
+        
+        
+        $viewchapters="select COUNT(*) as 'programId' from program";
+$result_viewchapters = $con->query($viewchapters);
+if ($result_viewchapters->num_rows > 0) {
+                                while($row= $result_viewchapters->fetch_assoc())
+                                {$pid = $row['programId'];}}
+                                else{echo"error 2";}
+
+
+        $sqla=" insert into programFinance
+values ('$pid', '$pay', '$description')";
+        if(!mysqli_query($con,$sqla))
+        {
+        echo"error 3";
+        }
+  }
+  if ($type ==0){
+      //echo"worked 0";
+      $sql=" INSERT INTO  program (employee_employeeId, organization_orgId, programName, programCountry, programCity, programLocation, programStartDate, programEndDate, programDescription, programRequirements, programType, programCapacity)
+VALUES ('$employee', '$organizationId', '$name', '$country', '$city', '$location', '$startDate' , NULL, '$description', '$requirement', '$type', '$capacity') ";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error 4";
+        }
+       
+  }
+
+  
+        
+        
         
 }
 
@@ -118,7 +152,7 @@ $viewEmployee="select em.employeeId, em.employeeFullName, em.employeetype
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="number" name="capacity" class="form-control" >
+                          <input type="number" name="pay" class="form-control" >
                       </div>
                       </div>
                     </div>
@@ -247,7 +281,7 @@ $viewEmployee="select em.employeeId, em.employeeFullName, em.employeetype
                         <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
 
-    	<script>
+      <script>
 
     $('#myDatepicker').datetimepicker();
     
@@ -288,3 +322,5 @@ $viewEmployee="select em.employeeId, em.employeeFullName, em.employeetype
   </body>
 
 </html>
+
+  
