@@ -2,9 +2,10 @@
 
 include_once("database.php");
 
+//select sp.sponsorName, co.countryName, sp.sponsorEmail, sp.sponsorPhonefrom sponsor sp inner join countryOffice co on sp.countryOffice_countryCode = co.countryCode
+
 $viewProg="
-select sp.sponsorName, co.countryName, sp.sponsorEmail, sp.sponsorPhone
-from sponsor sp inner join countryOffice co on sp.countryOffice_countryCode = co.countryCode
+select * from showSponsors
 ";
 $result_viewProg = $con->query($viewProg);
 
