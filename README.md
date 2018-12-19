@@ -91,6 +91,10 @@ Used 4 stored Procedures.
 3) view all programs [member view]
 4) create program applicant
 
+### View
+
+Used 1 view when displaying sponsors in 'viewSponsors.php'.
+
 ### Data population
 
 Most of the tables contain ~1000 rows. The 'RegisteredMembers' table contains ~1 Million rows.
