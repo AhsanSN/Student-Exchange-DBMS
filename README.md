@@ -8,8 +8,11 @@ The Global Student Exchange Program has branches worldwide. These branches in di
 
 [User View] http://greybulb.anomoz.com/db/production/login.php
 
-## Screenshots
+## Build Procedure
 
+Upload the website source files to Apache server. You can use WAMP or XAMP for this.
+
+## Screenshots
 
 <table>
   <tbody>
@@ -62,6 +65,47 @@ The Global Student Exchange Program has branches worldwide. These branches in di
     </tr>
   </tbody>
 </table>
+
+## Contributors
+
+Syed Ahsan Ahmed:
+
+worked on the front end on implementing the SQL queries on MSQL, as well as making the connection between website and database.
+
+Ahsan Qadeer:
+
+worked on all the queries in SQL server.
+
+## Code Insight
+
+### Triggers:
+
+Used once in order to create a row in the member finance table one a member is created in the registeredMembers table.
+
+### Stored Procedure
+
+Used 4 stored Procedures.
+
+1) End program.
+2) view all programs [admin view]
+3) view all programs [member view]
+4) create program applicant
+
+### Data population
+
+Most of the tables contain ~1000 rows. The 'RegisteredMembers' table contains ~1 Million rows.
+
+### Transaction
+
+Used 1 transaction. Happens at the time of ending program. This is what it does.
+1) Updates the EndProgram date
+2) add program ratings
+3) calculates earned money from work hours and adds to members accounts.
+
+
+
+
+
 
 
 
