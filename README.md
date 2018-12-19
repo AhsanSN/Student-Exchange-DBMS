@@ -10,7 +10,9 @@ The Global Student Exchange Program has branches worldwide. These branches in di
 
 ## Build Procedure
 
-Upload the website source files to Apache server. You can use WAMP or XAMP for this.
+1) Upload <code>anomozco_wp585.sql</code> to a MYSQL Server.
+2) Upload the website source files to the Apache server. You can use WAMP or XAMP for this.
+Taran! Your website is live.
 
 ## Screenshots
 
