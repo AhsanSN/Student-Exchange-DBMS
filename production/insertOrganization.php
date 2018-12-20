@@ -1,5 +1,5 @@
 <?php
-
+include_once("database.php");
 if(isset($_POST['name'])){
 
   $name = $_POST['name'];
@@ -7,7 +7,13 @@ if(isset($_POST['name'])){
   $email = $_POST['email'];
   $phoneNumber = $_POST['phoneNumber'];
 
-  //echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+$sql=" INSERT INTO  organization (orgName, orgAddress, orgEmail, orgPhone)
+VALUES ('$name', '$address', '$email', '$phoneNumber')
+		";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error";
+        }
 }
 
 ?>
@@ -37,7 +43,7 @@ if(isset($_POST['name'])){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                                   
                     <div class="form-group">

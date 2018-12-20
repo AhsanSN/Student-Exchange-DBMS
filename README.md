@@ -1,83 +1,117 @@
 # Student-Exchange-DBMS
-A data management system for an oil company. 
+For our project, we will be building a system for a global student exchange program, such as AISEC. Our system will include an initial ER Diagram, which will be followed by a complete Database, which we will then manipulate using a front-end interface, a website. This website will mainly be for administrative use, but a portion of the website will be available to the general public to view programs and apply for them.
+The Global Student Exchange Program has branches worldwide. These branches in different countries, are in different cities from where students are selected for the exchange program. Students before they get selected apply for exchange programs, apply for a program in their particular city chapter. Some students are selected by that city chapter and sent to other country to a city to work with the organization whose program it is. Students pay some fixed portion of the fee. These programs are funded by sponsors. The programs are created by worldwide NGO’s, startups, and companies. Students after returning from a program give their statements that are recorded.
 
-### Potential Transactions
+## Live preview
 
-1. Adding payment from a paid program to a student's total earning.
+[Admin View] http://greybulb.anomoz.com/db/production/
 
-2. Ending the program and entering the final report
+[User View] http://greybulb.anomoz.com/db/production/login.php
 
-### Progress
+## Build Procedure
 
-1. View Programs working
+1) Upload <code>anomozco_wp585.sql</code> to a MYSQL Server.
+2) Upload the website source files to the Apache server. You can use WAMP or XAMP for this.
+Taran! Your website is live.
 
-2. create programs working
+## Screenshots
 
-3. create country office working
+<table>
+  <tbody>
+    <tr>
+      <!-- Video 1 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1048).png">
+          <br>
+      </td>
+      <!-- Video 2 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1049).png">
+          <br>
+      </td>
+      <!-- Video 3 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1050).png">
+          <br>
+      </td>
+    </tr>
+    <tr>
+      <!-- Video 4 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1051).png">
+          <br>
+      </td>
+      <!-- Video 5 -->
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1052).png">
+          <br>
+      </td>
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1053).png">
+          <br>
+      </td>
+      <!-- Video 6 -->
+      <tr>
+      <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1054).png">
+          <br>
+      </td>
+        <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1055).png">
+          <br>
+      </td>
+        <td align="center">
+          <img width="290" alt="Simply Notify" src="/screenshots/Screenshot%20(1056).png">
+          <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-4. create chapter working
+## Contributors
 
-5. view chapters working
+Syed Ahsan Ahmed:
 
-6. Register Student working 
+worked on the front end on implementing the SQL queries on MSQL, as well as making the connection between website and database.
 
-7. Employee gender added
+Ahsan Qadeer:
 
-8. Insert employee working
+worked on all the queries in SQL server.
 
-9. view registered members working (should show numbers in 'programs selected for')
+## Code Insight
 
-10. view a members program working
+### Triggers:
 
-11. create organization working
+Used once in order to create a row in the member finance table one a member is created in the registeredMembers table.
 
-12. Add rating working
+### Stored Procedure
 
-13. Call for interview done (not tested)
+Used 4 stored Procedures.
 
-14. view interviewers working. (needs proper query)
+1) End program.
+2) view all programs [admin view]
+3) view all programs [member view]
+4) create program applicant
 
-15. View Organizations working
+### View
 
-16. Apply for program working
+Used 1 view when displaying sponsors in 'viewSponsors.php'.
 
+### Data population
 
+Most of the tables contain ~1000 rows. The 'RegisteredMembers' table contains ~1 Million rows.
 
+### Transaction
 
-
-
-### Progress (Qadeer and Ahmed)
-
-Program: Mark as Ended, takes us to Program Report [DONE] [done]
-
-Program No. of Applicants page should show Call, Selected, and Pending. [DONE] [done]
-
-UPDATE: Create/View Program has Program Head [DONE -- IF PROGRAM HEAD IS NOT ASSIGNED, IT SAYS 'ASSIGN PROGRAM HEAD'] [done but no option to assign]
-
-Employee type: 1 for Program Head, 2 for Interviewer [DONE] [noted]
-
-Interview DateTime are seperate [DONE] [done] 
-
-Remove MemberStatus from RegisteredMembers [DONE] [done]
-
-Member logs in, looks at Programs, Programs shows cases such as Apply, Selected, Called, Rejected [DONE] [working but creates 2 rows]
-
-registeredMembers program selected for should show an integer (count) [DONE] [ok]
-
-view Sponsors [DONE] [done-not tested]
-
-view interviews shows pending interviews [DONE] [done- not tested]
-
-remove duration from program [DONE] [done]
-
-make member account, add password attribute, add withdraw option [DONE] 
-  [password option added] attrbute name: memberPassword in 'registeredMember'
-
-remove program remarks [DONE] [done]
+Used 1 transaction. Happens at the time of ending program. This is what it does.
+1) Updates the EndProgram date
+2) add program ratings
+3) calculates earned money from work hours and adds to members accounts.
 
 
-### whats left
 
-1. view program report
 
-2. view member's program work but creates 2 rows
+
+
+
+

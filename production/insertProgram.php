@@ -1,18 +1,78 @@
 <?php
 
+include_once("database.php");
+
 if(isset($_POST['name'])){
 
   $name = $_POST['name'];
   $country = $_POST['country'];
   $city = $_POST['city'];
-  $location = $_POST['location'];
+  $location = $_POST['visitLocation'];
   $startDate = $_POST['startDate'];
-  $endDate = $_POST['endDate'];
+  $startDate=date("Y-m-d H:i:s",strtotime($startDate));
+  
   $description = $_POST['description'];
   $requirement = $_POST['requirement'];
+  
+  $pay = $_POST['pay'];
+  
+  $employee = $_POST['empHead'];
+  $type = $_POST['programType'];
+  $capacity = $_POST['capacity'];
+  $organizationId = $_POST['organization'];
 
-  //echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+  //echo "$name.$country.$city.$country.$location.$startDate.$description.$requirement";
+  if ($type ==1){
+      // echo"worked 1";
+      $sql=" INSERT INTO  program (employee_employeeId, organization_orgId, programName, programCountry, programCity, programLocation, programStartDate, programEndDate, programDescription, programRequirements, programType, programCapacity)
+VALUES ('$employee', '$organizationId', '$name', '$country', '$city', '$location', '$startDate' , NULL, '$description', '$requirement', '$type', '$capacity') ";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error 1";
+        }
+        
+        
+        $viewchapters="select COUNT(*) as 'programId' from program";
+$result_viewchapters = $con->query($viewchapters);
+if ($result_viewchapters->num_rows > 0) {
+                                while($row= $result_viewchapters->fetch_assoc())
+                                {$pid = $row['programId'];}}
+                                else{echo"error 2";}
+
+
+        $sqla=" insert into programFinance
+values ('$pid', '$pay', '$description')";
+        if(!mysqli_query($con,$sqla))
+        {
+        echo"error 3";
+        }
+  }
+  if ($type ==0){
+      //echo"worked 0";
+      $sql=" INSERT INTO  program (employee_employeeId, organization_orgId, programName, programCountry, programCity, programLocation, programStartDate, programEndDate, programDescription, programRequirements, programType, programCapacity)
+VALUES ('$employee', '$organizationId', '$name', '$country', '$city', '$location', '$startDate' , NULL, '$description', '$requirement', '$type', '$capacity') ";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error 4";
+        }
+       
+  }
+
+  
+        
+        
+        
 }
+
+
+$viewEmployee="select em.employeeId, em.employeeFullName, em.employeetype
+                from employee em where em.employeetype = 1
+                ";
+    $result_viewEmployee = $con->query($viewEmployee);
+   
+  $viewOrg="select * from organization
+                ";
+    $result_viewOrg = $con->query($viewOrg);     
 
 ?>
 <!DOCTYPE html>
@@ -41,7 +101,7 @@ if(isset($_POST['name'])){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name<span class="required"></span>
@@ -58,15 +118,46 @@ if(isset($_POST['name'])){
                           <div class="form-group">
                         
                           <select required="required" id="organization" name="organization" class="select2_single form-control" tabindex="-1">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Sirlanka">Sirlanka</option>
+                            <?php
+                              if ($result_viewOrg->num_rows > 0) {
+                                while($row= $result_viewOrg->fetch_assoc())
+                                {
+                                    echo " <option value='".$row['orgId']."'>".$row['orgName']."</option>";
+                                }
+                              }
+                              ?>
                           </select>
                       </div>
                       </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="programType" class="btn-group" data-toggle="buttons">
+                            <label onclick="show()" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input required="required" type="radio" name="programType" value="1"> &nbsp; Paid &nbsp;
+                            </label>
+                            <label onclick="hide()" class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input required="required" type="radio" name="programType" value="0"> Unpaid
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div id="amount">
+                          <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Pay Per day<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input type="number" name="pay" class="form-control" >
+                      </div>
+                      </div>
+                    </div>
+                          
+                      </div>
                    
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date<span class="required"></span>
@@ -79,17 +170,29 @@ if(isset($_POST['name'])){
                       </div>
                     </div>
 
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">End Date<span class="required"></span>
+
+                      <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                          <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10"/>
+                      </div>
+                      </div>
+                      </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="date" name="endDate" class="form-control" max="12-31-2014" min="12-31-1950">
+                          <input required="required" type="text" name="city" class="form-control" >
                       </div>
                       </div>
                     </div>
 
+                    
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Visit Location<span class="required"></span>
                           </label>
@@ -100,32 +203,22 @@ if(isset($_POST['name'])){
                       </div>
                       </div>
                     </div>
-
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
+                    
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Employee Head<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" id="country" name="country" class="select2_single form-control" tabindex="-1">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Sirlanka">Sirlanka</option>
-                          </select>
-                      </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-
-                          <select required="required" id="city" name="city" class="select2_single form-control" tabindex="-1">
-                            <option value=" "></option>
+                          <select required="required" id="organization" name="empHead" class="select2_single form-control" tabindex="-1">
+                            <?php
+                              if ($result_viewEmployee->num_rows > 0) {
+                                while($row= $result_viewEmployee->fetch_assoc())
+                                {
+                                    echo " <option value='".$row['employeeId']."'>".$row['employeeFullName']."</option>";
+                                }
+                              }
+                              ?>
                           </select>
                       </div>
                       </div>
@@ -152,6 +245,17 @@ if(isset($_POST['name'])){
                       </div>
                       </div>
                     </div>
+                    
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Capacity<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input required="required" type="number" name="capacity" class="form-control" >
+                      </div>
+                      </div>
+                    </div>
 
                    
                       <div class="ln_solid"></div>
@@ -174,30 +278,10 @@ if(isset($_POST['name'])){
     <?php include_once("./phpParts/endScripts.php")?>
         <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
             <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+                        <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
 
-    	<script>
-
-  $(document).ready(function () {
-    $("#country").change(function () {
-        var val = $(this).val();
-        if (val == "Pakistan") {
-            $("#city").html("<option value='Karachi'>Karachi</option><option value='Islamabad'>Islamabad</option><option value='Rawalpindi'>Rawalpindi</option><option value='Sukkur'>Sukkur</option>");
-        } 
-        else if (val == "India") {
-            $("#city").html("<option value='New Dehli'>New Dehli</option><option value='Calcutta'>Calcutta</option><option value='Banglore'>Banglore</option><option value='Bombay'>Bombay</option>");
-        } 
-        else if (val == "China") {
-            $("#city").html("<option value='Beijing'>Beijing</option><option value='Shanghai'>Shanghai</option>");
-        } 
-        else if (val == "USA") {
-            $("#city").html("<option value='New York'>New York</option><option value='Houston'>Houston</option><option value='California'>California</option>");
-        }
-        else if (val == "Sirlanka") {
-            $("#city").html("<option value='Sigiriya'>Sigiriya</option><option value='Kandy'>Kandy</option><option value='Galle'>Galle</option>");
-        }
-    });
-});
+      <script>
 
     $('#myDatepicker').datetimepicker();
     
@@ -227,7 +311,16 @@ if(isset($_POST['name'])){
     $("#datetimepicker7").on("dp.change", function(e) {
         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
     });
+    
+    function hide(){
+        document.getElementById("amount").style.display='none';
+    }
+    function show(){
+        document.getElementById("amount").style.display='block';
+    }
 </script>
   </body>
 
 </html>
+
+  

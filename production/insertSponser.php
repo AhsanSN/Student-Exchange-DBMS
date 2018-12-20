@@ -1,14 +1,25 @@
 <?php
 
-if(isset($_POST['name'])){
+include_once("database.php");
+
+if(isset($_POST['countryCode'])){
 
   $name = $_POST['name'];
-  $country = $_POST['country'];
+  $countryCode = $_POST['countryCode'];
   $email = $_POST['email'];
   $phoneNumber = $_POST['phoneNumber'];
 
-  //echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+    $sql=" insert into sponsor (countryOffice_countryCode, sponsorName, 	sponsorEmail,sponsorPhone) values ('$countryCode', '$name', '$email', '$phoneNumber')";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error";
+        }
+        
 }
+
+$viewOrg="select countryCode, countryName from countryOffice";
+$result_viewOrg = $con->query($viewOrg);     
+
 
 ?>
 <!DOCTYPE html>
@@ -48,17 +59,20 @@ if(isset($_POST['name'])){
                       </div>
 
                       <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country Office<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" id="organization" name="country" class="select2_single form-control" tabindex="-1">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Sirlanka">Sirlanka</option>
+                          <select required="required" id="organization" name="countryCode" class="select2_single form-control" tabindex="-1">
+                            <?php
+                              if ($result_viewOrg->num_rows > 0) {
+                                while($row= $result_viewOrg->fetch_assoc())
+                                {
+                                    echo " <option value='".$row['countryCode']."'>".$row['countryName']."</option>";
+                                }
+                              }
+                              ?>
                           </select>
                       </div>
                       </div>

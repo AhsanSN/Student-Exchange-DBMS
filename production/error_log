@@ -1,0 +1,45 @@
+[10-Nov-2018 09:20:51 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'anomozco_wp585'@'localhost' (using password: YES) in /home/anomozco/greybulb.anomoz.com/db/production/database.php on line 9
+[10-Nov-2018 09:20:51 UTC] PHP Warning:  mysqli_select_db() expects parameter 1 to be mysqli, boolean given in /home/anomozco/greybulb.anomoz.com/db/production/database.php on line 14
+[10-Nov-2018 11:25:21 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/anomozco/greybulb.anomoz.com/db/production/viewChapter.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/viewChapter.php on line 4
+[11-Nov-2018 06:45:37 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/anomozco/greybulb.anomoz.com/db/production/viewRegisteredStudents.php on line 101
+[25-Nov-2018 05:40:15 UTC] PHP Warning:  include_once(global.php): failed to open stream: No such file or directory in /home/anomozco/greybulb.anomoz.com/db/production/login.php on line 2
+[25-Nov-2018 05:40:15 UTC] PHP Warning:  include_once(): Failed opening 'global.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/anomozco/greybulb.anomoz.com/db/production/login.php on line 2
+[25-Nov-2018 06:06:30 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/anomozco/greybulb.anomoz.com/db/production/database.php:1) in /home/anomozco/greybulb.anomoz.com/db/production/global.php on line 31
+[25-Nov-2018 06:06:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/anomozco/greybulb.anomoz.com/db/production/database.php:1) in /home/anomozco/greybulb.anomoz.com/db/production/global.php on line 31
+[14-Dec-2018 14:08:15 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 90
+[14-Dec-2018 14:08:38 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 14
+[14-Dec-2018 14:11:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 14
+[14-Dec-2018 14:11:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 14
+[14-Dec-2018 14:12:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function beginTransaction() on null in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 16
+[14-Dec-2018 14:19:58 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'anomozco_wp585'@'localhost' (using password: YES) in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:7
+Stack trace:
+#0 /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php(7): PDO->__construct('mysql:host=loca...', 'anomozco_wp585', 'd9aoI0N=QgO#$')
+#1 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 7
+[14-Dec-2018 14:23:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:50
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 50
+[14-Dec-2018 14:24:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:52
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 52
+[14-Dec-2018 14:24:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_query() in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php:86
+Stack trace:
+#0 {main}
+  thrown in /home/anomozco/greybulb.anomoz.com/db/production/insertReport.php on line 86

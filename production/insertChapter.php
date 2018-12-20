@@ -1,14 +1,24 @@
 <?php
+include_once("database.php");
 
-if(isset($_POST['country'])){
+$viewCountry="select * from countryOffice";
+$result_viewCountry = $con->query($viewCountry);
 
-  $country = $_POST['country'];
+if(isset($_POST['countryOffice'])){
+
+  $countryOffice = $_POST['countryOffice'];
   $city = $_POST['city'];
   $email = $_POST['email'];
   $phoneNumber = $_POST['phoneNumber'];
   $address = $_POST['address'];
 
-  //echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+  //echo "$countryOffice. $city.$email.$phoneNumber.$address";
+  
+  $sqli="INSERT INTO cityChapter (countryOffice_countryCode, chapterCity, chapterEmail, chapterPhone, chapterAddress) VALUES ('$countryOffice', '$city', '$email', '$phoneNumber', '$address')";
+        if(!mysqli_query($con,$sqli))
+        {
+        echo"Error adding entry.";
+        }
 }
 
 ?>
@@ -38,21 +48,24 @@ if(isset($_POST['country'])){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                     
                       <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country Office<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <select required="required" id="organization" name="organization" class="select2_single form-control" tabindex="-1">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Sirlanka">Sirlanka</option>
+                          <select required="required" id="organization" name="countryOffice" class="select2_single form-control" tabindex="-1">
+                              <?php
+                              if ($result_viewCountry->num_rows > 0) {
+                                while($row= $result_viewCountry->fetch_assoc())
+                                {
+                                    echo"<option value='". $row['countryCode']."'>".$row['countryName']."</option>";
+                                }
+                              }
+                              ?>
                           </select>
                       </div>
                       </div>
@@ -64,7 +77,7 @@ if(isset($_POST['country'])){
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
-                          <input required="required" type="text" name="city" class="form-control">
+                          <input required="required" type="text" name="city" class="form-control" >
                       </div>
                       </div>
                     </div>
@@ -123,30 +136,11 @@ if(isset($_POST['country'])){
     <?php include_once("./phpParts/endScripts.php")?>
         <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
             <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+                                    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+
 
 
     	<script>
-
-  $(document).ready(function () {
-    $("#country").change(function () {
-        var val = $(this).val();
-        if (val == "Pakistan") {
-            $("#city").html("<option value='Karachi'>Karachi</option><option value='Islamabad'>Islamabad</option><option value='Rawalpindi'>Rawalpindi</option><option value='Sukkur'>Sukkur</option>");
-        } 
-        else if (val == "India") {
-            $("#city").html("<option value='New Dehli'>New Dehli</option><option value='Calcutta'>Calcutta</option><option value='Banglore'>Banglore</option><option value='Bombay'>Bombay</option>");
-        } 
-        else if (val == "China") {
-            $("#city").html("<option value='Beijing'>Beijing</option><option value='Shanghai'>Shanghai</option>");
-        } 
-        else if (val == "USA") {
-            $("#city").html("<option value='New York'>New York</option><option value='Houston'>Houston</option><option value='California'>California</option>");
-        }
-        else if (val == "Sirlanka") {
-            $("#city").html("<option value='Sigiriya'>Sigiriya</option><option value='Kandy'>Kandy</option><option value='Galle'>Galle</option>");
-        }
-    });
-});
 
     $('#myDatepicker').datetimepicker();
     

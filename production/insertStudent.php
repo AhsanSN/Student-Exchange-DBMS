@@ -1,21 +1,31 @@
 <?php
+include_once("database.php");
 
-if(isset($_POST['firstName'])){
+$viewcity="select * from cityChapter";
+$result_viewCity = $con->query($viewcity);
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
+if(isset($_POST['email'])){
+    
+
+  $name = $_POST['fullname'];
+  $email = $_POST['email'];
+  $address = $_POST['address'];
   $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
   $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
+  $doj=date("Y-m-d H:i:s",strtotime($doj));
+  $dob = $_POST['dob'];
+  $dob=date("Y-m-d H:i:s",strtotime($dob));
+  $university = $_POST['university'];
+  $city = $_POST['city'];
+  $password = $_POST['password'];
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
+  $sql=" INSERT INTO registeredMembers (cityChapter_chapterId, memberFullName, memberEmail, memberAddress, memberPassword, memberPhone, memberJoinDate,memberLeaveDate, memberDOB, memberUniversity)
+VALUES ('$city','$name', '$email', '$address', '$password' ,'$mobileNumber', '$doj', NULL, '$dob', '$university')";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error";
+        }
+        
 }
 
 ?>
@@ -45,37 +55,24 @@ if(isset($_POST['firstName'])){
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name<span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input name="firstName" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input name="fullname" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required"></span>
+                        
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Address<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="lastName" required="required" class="form-control col-md-7 col-xs-12">
+                          <input name="address" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                     
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div id="gender" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input required="required" type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                            </label>
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input required="required" type="radio" name="gender" value="female"> Female
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <br>
+                      
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required"></span>
                           </label>
@@ -83,6 +80,17 @@ if(isset($_POST['firstName'])){
                           <div class="form-group">
                         
                           <input required="required" name="email" type="email" class="form-control">
+                      </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Password<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <input required="required" name="password" type="password" class="form-control">
                       </div>
                       </div>
                     </div>
@@ -97,25 +105,7 @@ if(isset($_POST['firstName'])){
                       </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Mobile Number<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <input type="text" name="emergencyMobileNumber" class="form-control" data-inputmask="'mask': '+99-9999999999'">
-                      </div>
-                      </div>
-                    </div>
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">CNIC<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                          <input required="required" type="text" name="cnic" class="form-control" data-inputmask="'mask': '99-99-9999'">
-                      </div>
-                      </div>
-                    </div>
+                
         
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth<span class="required"></span>
@@ -129,31 +119,22 @@ if(isset($_POST['firstName'])){
                       </div>
                     </div>
 
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <select required="required" id="country" name="country" class="select2_single form-control" tabindex="-1">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="USA">USA</option>
-                            <option value="China">China</option>
-                            <option value="Sirlanka">Sirlanka</option>
-                          </select>
-                      </div>
-                      </div>
-                    </div>
-
+                     
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="required"></span>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">City Office<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
 
                           <select required="required" id="city" name="city" class="select2_single form-control" tabindex="-1">
-                            <option value=" "></option>
+                            <?php
+                              if ($result_viewCity->num_rows > 0) {
+                                while($row= $result_viewCity->fetch_assoc())
+                                {
+                                    echo"<option value='". $row['chapterId']."'>".$row['chapterCity']."</option>";
+                                }
+                              }
+                              ?>
                           </select>
                       </div>
                       </div>

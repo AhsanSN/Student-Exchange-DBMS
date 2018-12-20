@@ -1,21 +1,30 @@
 <?php
+include_once("database.php");
 
-if(isset($_POST['firstName'])){
+$viewCountry="select * from countryOffice";
+$result_viewCountry = $con->query($viewCountry);
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
+if(isset($_POST['fullName'])){
+
+  $fullName = $_POST['fullName'];
   $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
   $dob = $_POST['dob'];
-  $department = $_POST['department'];
   $position = $_POST['position'];
   $doj = $_POST['doj'];
   $salary = $_POST['salary'];
-  $car = $_POST['car'];
+  $email = $_POST['email'];
+  $countryOffice = $_POST['countryOffice'];
+  
+  $sql=" INSERT INTO  employee(countryOffice_countryCode, employeeFullName, employeeJoiningDate, employeeDOB, employeePhone, employeeEmail, employeeSalary, employeeType )
+VALUES ('$countryOffice', '$fullName', '$doj',  '$dob',
+		'$mobileNumber', '$email', '$salary', '$position')
+		";
+        if(!mysqli_query($con,$sql))
+        {
+        echo"error";
+        }
+        
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
 }
 
 ?>
@@ -48,33 +57,15 @@ if(isset($_POST['firstName'])){
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="insertEmployee.php" method="post">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name<span class="required"></span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input name="firstName" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input name="fullName" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required"></span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="lastName" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                     
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div id="gender" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input required="required" type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                            </label>
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input required="required" type="radio" name="gender" value="female"> Female
-                            </label>
-                          </div>
-                        </div>
-                      </div>
+
+                
+                      <br>
                       <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile Number<span class="required"></span>
                           </label>
@@ -85,26 +76,15 @@ if(isset($_POST['firstName'])){
                       </div>
                       </div>
                     </div>
+                    
                     <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Emergency Mobile Number<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <input type="text" name="emergencyMobileNumber" class="form-control" data-inputmask="'mask': '+99-9999999999'">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Email<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input name="email" type="email" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
                       </div>
-                      </div>
-                    </div>
-                      <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">CNIC<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                          <input required="required" type="text" name="cnic" class="form-control" data-inputmask="'mask': '99-99-9999'">
-                      </div>
-                      </div>
-                    </div>
-        
+
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth<span class="required"></span>
                           </label>
@@ -118,40 +98,42 @@ if(isset($_POST['firstName'])){
                     </div>
 
                       <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Department<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <select required="required" name="department" class="select2_single form-control" tabindex="-1">
-                            <option value="Accounting">Accounting</option>
-                            <option value="Consulting">Consulting</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Human Resources">Human Resources</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Security">Security</option>
-                            <option value="IT">IT</option>
-                          </select>
-                      </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Position<span class="required"></span>
                           </label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
                         
                           <select required="required" name="position" class="select2_single form-control" tabindex="-1">
-                            <option value="Director">Director</option>
-                            <option value="General Manager">General Manager</option>
-                            <option value="Ast. General Manager">Ast. General Manager</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Ast. Manager">Ast. Manager</option>
+                            <option value="1">Program Head</option>
+                            <option value="2">Interviewer</option>
+                            <option value="3">Director</option>
+                            <option value="4">Marketing</option>
+                            <option value="5">Human Resource</option>
                           </select>
                       </div>
                       </div>
                     </div>
+                    
+                    <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Country Office<span class="required"></span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="form-group">
+                        
+                          <select required="required" name="countryOffice" class="select2_single form-control" tabindex="-1">
+                            <?php
+                              if ($result_viewCountry->num_rows > 0) {
+                                while($row= $result_viewCountry->fetch_assoc())
+                                {
+                                    echo"<option value='". $row['countryCode']."'>".$row['countryName']."</option>";
+                                }
+                              }
+                              ?>
+                          </select>
+                      </div>
+                      </div>
+                    </div>
+
 
                     <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining<span class="required"></span>
@@ -171,22 +153,6 @@ if(isset($_POST['firstName'])){
                         </div>
                       </div>
 
-                    <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Car (if applicable)<span class="required"></span>
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                        
-                          <select name="car" class="select2_single form-control" tabindex="-1">
-                            <option value="none"> </option>
-                            <option value="Suzuki Mehran">Suzuki Mehran</option>
-                            <option value="Suzuki Cultus">Suzuki Cultus</option>
-                            <option value="Toyota Corolla">Toyota Corolla</option>
-                            <option value="Honda City">Honda City</option>
-                          </select>
-                      </div>
-                      </div>
-                    </div>
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

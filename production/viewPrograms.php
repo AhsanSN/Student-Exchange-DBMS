@@ -1,22 +1,10 @@
 <?php
 
-if(isset($_POST['firstName'])){
+include_once("database.php");
 
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $gender = $_POST['gender'];
-  $mobileNumber = $_POST['mobileNumber'];
-  $emergencyMobileNumber = $_POST['emergencyMobileNumber'];
-  $cnic = $_POST['cnic'];
-  $dob = $_POST['dob'];
-  $country = $_POST['country'];
-  $city = $_POST['city'];
-  $doj = $_POST['doj'];
-  $salary = $_POST['salary'];
-  $car = $_POST['car'];
+$viewProg="CALL AdminViewsPrograms()";
+$result_viewProg = $con->query($viewProg);
 
-  echo "$firstName. $lastName.$gender.$mobileNumber.$emergencyMobileNumber.$cnic.$dob.$department.$position.$doj.$salary.$car";
-}
 
 ?>
 <!DOCTYPE html>
@@ -56,39 +44,49 @@ if(isset($_POST['firstName'])){
                           <th>City</th>
                           <th>Description</th>
                           <th>Requirement</th>
-                          
+                          <th>Program Head</th>
+                          <th>Capacity</th>
+                          <th>Type</th>
+                          <th>Number of Application</th>
+                          <th>Selected Students</th>
+                          <th>Mark as ended</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          
-                        </tr>
-                        <tr>
-                          <td>Garrett Winters</td>
-                          <td>Accountant</td>
-                          <td>Tokyo</td>
-                          <td>63</td>
-                    
-                        </tr>
-                        <tr>
-                          <td>Ashton Cox</td>
-                          <td>Junior Technical Author</td>
-                          <td>San Francisco</td>
-                          <td>66</td>
-                     
-                        </tr>
-                        <tr>
-                          <td>Cedric Kelly</td>
-                          <td>Senior Javascript Developer</td>
-                          <td>Edinburgh</td>
-                          <td>22</td>
-                         
-                        </tr>
-                        
+                          <?php
+                            
+                            if ($result_viewProg->num_rows > 0) {
+                                while($row= $result_viewProg->fetch_assoc())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>".$row['programName']."</td>";
+                                    echo "<td>".$row['orgName']."</td>"; 
+                                    echo "<td>".$row['programStartDate']."</td>"; 
+                                    echo "<td>".$row['programEndDate']."</td>"; 
+                                    echo "<td>".$row['programLocation']."</td>";
+                                    echo "<td>".$row['programCountry']."</td>"; 
+                                    echo "<td>".$row['programCity']."</td>"; 
+                                    echo "<td>".$row['programDescription']."</td>"; 
+                                    echo "<td>".$row['programRequirements']."</td>"; 
+                                    echo "<td>".$row['Program Head']."</td>"; 
+                                    echo "<td>".$row['programCapacity']."</td>";
+                                    echo "<td>".$row['Program Type']."</td>";
+                                    echo "<td>". $row['No. of Applicants'] ."<a href='viewProgramApplicants.php?programId=".$row['programId']."'> [View]</a></td>"; 
+                                     echo "<td>".$row['Selected Students']."</td>";
+                                     if ($row['Mark as Ended']=='Mark as Ended'){
+                                         echo "<td><a href='insertReport.php?programId=".$row['programId']."'>[".$row['Mark as Ended']."]</a></td>";
+                                     }
+                                     if ($row['Mark as Ended']=='See Program Report'){
+                                         echo "<td><a href='viewReport.php?programId=".$row['programId']."'>[".$row['Mark as Ended']."]</a></td>";
+                                     }
+                                     
+                                      
+                                    echo "</tr>";
+                                }
+                            }
+
+                          ?>
+
                       </tbody>
                     </table>
                   </div>

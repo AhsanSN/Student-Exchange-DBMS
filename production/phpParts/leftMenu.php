@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>AHSAN OIL</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Student Exchange Programme</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -30,20 +30,24 @@
                     <ul class="nav child_menu">
                       <li><a href="viewPrograms.php">View Programs</a></li>
                       <li><a href="insertProgram.php">Create Program</a></li>
+                      <li><a href="insertStudentApplication.php"> Apply for Program</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-mortar-board"></i> Chapters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewChapter.php">View Chapters</a></li>
-                      <li><a href="insertChapter.php">Create Chapter</a></li>                     
+                      <li><a href="insertChapter.php">Create Chapter</a></li>  
+                      <li><a href="insertCountryOffice.php">Create Country Office</a></li>  
                     </ul>
                   </li>                  
-                  <li><a><i class="fa fa-users"></i> Students <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users"></i> People <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewRegisteredStudents.php"> View Registered Students</a></li>
                       <li><a href="insertStudent.php"> Register Student</a></li>
+                      <li><a href="insertEmployee.php"> Register Employee</a></li>
                     </ul>
                   </li>
+               
                   <li><a><i class="fa fa-bank"></i> Organizations <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewOrganization.php"> View Organizations</a></li>
@@ -56,17 +60,17 @@
                       <li><a href="insertSponser.php"> Insert Sponsor</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-money"></i> Interview <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-comments"></i> Interviews <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="viewInterviews.php"> View Interviews</a></li>
                       <li><a href="viewInterviewers.php"> View Interviewers</a></li>
-                      <li><a href="insertInterviewer.php"> Insert Interviewers</a></li>
                     </ul>
                   </li>
                   
                 </ul>
               </div>
               <br>
+              
               
 
             </div>
